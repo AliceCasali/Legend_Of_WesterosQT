@@ -26,11 +26,11 @@ public:
 
     void writeTerritory(int r, int c, Territory val);
 
-    int getRow() const {
+    int getNumRows() const {
         return rows;
     }
 
-    int getColumn() const {
+    int getNumColumns() const {
         return columns;
     }
 

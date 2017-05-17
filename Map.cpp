@@ -16,6 +16,22 @@
 
 using namespace std;
 
+/*Map::Map() : rows(10), columns(6) {
+    //costruttore di default, la mappa all'inizio è sempre uguale
+    matrix[rows][columns];
+
+    int tempMat[rows][columns] = {{0, 6, 3, 6, 0, 0},
+                                  {0, 0, 0, 5, 6, 0},
+                                  {0, 1, 3, 2, 4, 0},
+                                  {0, 2, 3, 6, 0, 0},
+                                  {0, 0, 3, 0, 1, 0},
+                                  {0, 0, 3, 6, 1, 0},
+                                  {0, 5, 3, 2, 0, 0},
+                                  {0, 5, 3, 4, 2, 0},
+                                  {0, 1, 3, 2, 0, 0},
+                                  {0, 0, 3, 2, 1, 0}
+    };*/
+
 Map::Map() : rows(4), columns(8) {
     //costruttore di default, la mappa all'inizio è sempre uguale
     matrix[rows][columns];

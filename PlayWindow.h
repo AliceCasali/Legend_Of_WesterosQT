@@ -2,6 +2,7 @@
 #define PLAYWINDOW_H
 
 #include <QDialog>
+#include <QPainter>
 #include "Targaryen.h"
 #include "Baratheon.h"
 #include "Greyjoy.h"
@@ -29,14 +30,16 @@ public:
     void setHouseTargaryen();
     void setHouseWhiteWalkers();
 
+    void paintEvent(QPaintEvent *) override;
 
 private slots:
-    void on_pushButton_clicked();
-
     void on_attacca_clicked();
 
 private:
     Ui::PlayWindow *ui;
+    QPixmap bkgnd;
+    QPixmap stark;
+    QPainter painter;
     Map mappa;
 
 };

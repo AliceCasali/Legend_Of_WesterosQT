@@ -15,10 +15,14 @@ p.setBrush(QPalette::Background, bg);
 using namespace std;
 
 PlayWindow::PlayWindow(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent), painter(this),
     ui(new Ui::PlayWindow)
 {
     ui->setupUi(this);
+
+    bkgnd = QPixmap("img/westeros.jpg");
+
+    stark = QPixmap("img/stark.png");
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
@@ -32,6 +36,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
 
     //creo la mappa
     mappa = Map();
+
 }
 
 
@@ -81,6 +86,20 @@ void PlayWindow::setHouseWhiteWalkers()
     WhiteWalkers* player;
     player=new WhiteWalkers;
     ui->label->setText(QString::fromStdString(std::string(player->getName())));
+}
+
+void PlayWindow::paintEvent(QPaintEvent *)
+{
+
+
+
+    QPainter painter2(&bkgnd);
+    painter2.drawPixmap(0, 0, 100, 100, stark);
+
+    bkgnd = bkgnd.scaled(this->size());
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
 }
 
 /*ostream& operator<<(ostream &o, Strategy s) //traduzione da strategy a stringa per fare cout
