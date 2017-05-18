@@ -31,6 +31,7 @@ public:
     void setHouseWhiteWalkers();
 
     void paintEvent(QPaintEvent *) override;
+    void mousePressEvent(QMouseEvent *eventPress) override;
 
 private slots:
     void on_attacca_clicked();
@@ -39,7 +40,7 @@ private:
     Ui::PlayWindow *ui;
     QPixmap bkgnd;
     QPixmap stark;
-    QPainter painter;
+    QPainter *painter;
     Map mappa;
 
 };

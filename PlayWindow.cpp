@@ -3,6 +3,7 @@
 #include "iostream"
 
 #include <QString>
+#include <QMouseEvent>
 //#include Q_OBJECT
 #include <string>
 
@@ -15,14 +16,14 @@ p.setBrush(QPalette::Background, bg);
 using namespace std;
 
 PlayWindow::PlayWindow(QWidget *parent) :
-    QDialog(parent), painter(this),
-    ui(new Ui::PlayWindow)
+    QDialog(parent), ui(new Ui::PlayWindow)
 {
     ui->setupUi(this);
 
     bkgnd = QPixmap("img/westeros.jpg");
-
     stark = QPixmap("img/stark.png");
+    painter = new QPainter(&bkgnd);
+
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
@@ -44,6 +45,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
 PlayWindow::~PlayWindow()
 {
     delete ui;
+    delete painter;
 }
 
 void PlayWindow::setHouseBaratheon()
@@ -90,16 +92,63 @@ void PlayWindow::setHouseWhiteWalkers()
 
 void PlayWindow::paintEvent(QPaintEvent *)
 {
+    //QPainter painter(&bkgnd);
+    // andrà modificato per togliere l'errore
+    delete painter;
+    painter = new QPainter(&bkgnd);
+    // ..
+
+    int w, h;
+    w = bkgnd.width()/mappa.getNumColumns();
+    h = bkgnd.height()/mappa.getNumRows();
+
+    for(int i = 0; i<mappa.getNumRows(); i++){
+        for(int j = 0; j<mappa.getNumColumns(); j++){
+            Territory territory = mappa.readTerritory(i, j);
+            if(!territory.isEarth())
+                continue;
+            int x = j * w;
+            int y = i * h;
+            QPixmap *stemma;
+            switch (territory.getArmy()->getName()[0]) {
+                case 'L':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+                case 'S':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+                case 'G':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+                case 'T':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+                case 'W':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+                case 'B':
+                    stemma = new QPixmap("img/stark.png");
+                    break;
+            }
+            painter->drawPixmap(x, y, w, h, *stemma);
+            delete stemma;
+
+        }
+    }
 
 
-
-    QPainter painter2(&bkgnd);
-    painter2.drawPixmap(0, 0, 100, 100, stark);
+    //painter2.drawPixmap(0, 0, 100, 100, stark);
 
     bkgnd = bkgnd.scaled(this->size());
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
+}
+
+void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
+{
+    QPoint p = eventPress->pos();
+    cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
 }
 
 /*ostream& operator<<(ostream &o, Strategy s) //traduzione da strategy a stringa per fare cout

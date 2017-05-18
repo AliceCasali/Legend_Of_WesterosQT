@@ -16,7 +16,7 @@
 
 using namespace std;
 
-/*Map::Map() : rows(10), columns(6) {
+Map::Map() : rows(numRows), columns(numCols) {
     //costruttore di default, la mappa all'inizio è sempre uguale
     matrix[rows][columns];
 
@@ -30,8 +30,8 @@ using namespace std;
                                   {0, 5, 3, 4, 2, 0},
                                   {0, 1, 3, 2, 0, 0},
                                   {0, 0, 3, 2, 1, 0}
-    };*/
-
+    };
+/*
 Map::Map() : rows(4), columns(8) {
     //costruttore di default, la mappa all'inizio è sempre uguale
     matrix[rows][columns];
@@ -40,7 +40,7 @@ Map::Map() : rows(4), columns(8) {
                          {0, 5, 1, 6, 6, 0, 1, 5},
                          {0, 2, 3, 0, 1, 0, 0, 2},
                          {0, 0, 0, 2, 6, 4, 3, 2}
-    };
+    };*/
 
     // TODO: usare factory per creare gli elementi della mappa?
     int i;
