@@ -13,7 +13,7 @@ QPalette p(palette());
 p.setBrush(QPalette::Background, bg);
 */
 
-using namespace std;
+//using namespace std;
 
 PlayWindow::PlayWindow(QWidget *parent) :
     QDialog(parent), ui(new Ui::PlayWindow)
@@ -22,8 +22,11 @@ PlayWindow::PlayWindow(QWidget *parent) :
 
     bkgnd = QPixmap("img/westeros.jpg");
     stark = QPixmap("img/stark.png");
-    painter = new QPainter(&bkgnd);
-
+    lannister = QPixmap("img/lannister.png");
+    baratheon = QPixmap("img/baratheon.png");
+    greyjoy = QPixmap("img/greyjoy.png");
+    targaryen = QPixmap("img/targaryen.png");
+    whitewalkers = QPixmap("img/whitewalkers.png");
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
@@ -38,6 +41,18 @@ PlayWindow::PlayWindow(QWidget *parent) :
     //creo la mappa
     mappa = Map();
 
+    vectHouses[0] = 'B';
+    vectHouses[1] = 'G';
+    vectHouses[2] = 'L';
+    vectHouses[3] = 'S';
+    vectHouses[4] = 'T';
+    vectHouses[5] = 'W';
+
+    invaderRow = -1;
+    invaderColumn = -1;
+    defenderRow = -1;
+    defenderColumn = -1;
+
 }
 
 
@@ -45,14 +60,14 @@ PlayWindow::PlayWindow(QWidget *parent) :
 PlayWindow::~PlayWindow()
 {
     delete ui;
-    delete painter;
 }
 
-void PlayWindow::setHouseBaratheon()
+/*void PlayWindow::setHouseBaratheon()
 {
     Baratheon* player;
     player=new Baratheon;
     ui->label->setText(QString::fromStdString(std::string(player->getName())));
+
 }
 
 void PlayWindow::setHouseGreyjoy()
@@ -60,6 +75,7 @@ void PlayWindow::setHouseGreyjoy()
     Greyjoy* player;
     player=new Greyjoy;
     ui->label->setText(QString::fromStdString(std::string(player->getName())));
+
 }
 
 void PlayWindow::setHouseLannister()
@@ -88,16 +104,16 @@ void PlayWindow::setHouseWhiteWalkers()
     WhiteWalkers* player;
     player=new WhiteWalkers;
     ui->label->setText(QString::fromStdString(std::string(player->getName())));
-}
+}*/
 
 void PlayWindow::paintEvent(QPaintEvent *)
 {
     //QPainter painter(&bkgnd);
     // andrà modificato per togliere l'errore
-    delete painter;
-    painter = new QPainter(&bkgnd);
+    QPainter painter(&bkgnd);
     // ..
 
+    QPixmap *stemma;
     int w, h;
     w = bkgnd.width()/mappa.getNumColumns();
     h = bkgnd.height()/mappa.getNumRows();
@@ -109,29 +125,28 @@ void PlayWindow::paintEvent(QPaintEvent *)
                 continue;
             int x = j * w;
             int y = i * h;
-            QPixmap *stemma;
             switch (territory.getArmy()->getName()[0]) {
                 case 'L':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &lannister;
                     break;
                 case 'S':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &stark;
                     break;
                 case 'G':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &greyjoy;
                     break;
                 case 'T':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &targaryen;
                     break;
                 case 'W':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &whitewalkers;
                     break;
                 case 'B':
-                    stemma = new QPixmap("img/stark.png");
+                    stemma = &baratheon;
                     break;
             }
-            painter->drawPixmap(x, y, w, h, *stemma);
-            delete stemma;
+            painter.drawPixmap(x, y, w, h, *stemma);
+
 
         }
     }
@@ -143,12 +158,65 @@ void PlayWindow::paintEvent(QPaintEvent *)
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
+
+    //delete stemma;
 }
 
 void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
 {
     QPoint p = eventPress->pos();
     cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
+    int w, h;
+    w = bkgnd.width()/mappa.getNumColumns();
+    h = bkgnd.height()/mappa.getNumRows();
+    int i = p.y()/h;
+    int j = p.x()/w;
+    Territory territory = mappa.readTerritory(i, j);
+
+    switch(eventPress->button()){
+    case Qt::LeftButton:
+        cout << "Premuto clic sx" << endl;
+        if(invaderRow == -1){
+            if(territory.isEarth()){
+                if(vectHouses[0] == territory.getArmy()->getName()[0]){
+                    invaderRow = i;
+                    invaderColumn = j;
+                    // eventualmente mostro qualcosa graficamente
+                    cout << "Riga invasore: " << invaderRow << ", Colonna invasore: " << invaderColumn << endl;
+                }
+            }
+            return;
+        }
+
+        if(defenderRow == -1){
+            if(territory.isEarth()){
+                if(vectHouses[0] != territory.getArmy()->getName()[0]){
+                    defenderRow = i;
+                    defenderColumn = j;
+                    // eventualmente mostro qualcosa graficamente
+                    cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
+                }
+            }
+            return;
+        }
+
+
+
+        break;
+    case Qt::RightButton:
+        cout << "Premuto clic dx" << endl;
+    }
+}
+
+void PlayWindow::setHouse(string nameHouse)
+{
+    for(int i = 0; i<numCasate; i++){
+        if(vectHouses[i] == nameHouse[0]){
+            vectHouses[i] = vectHouses[0];
+            vectHouses[0] = nameHouse[0];
+            break;
+        }
+    }
 }
 
 /*ostream& operator<<(ostream &o, Strategy s) //traduzione da strategy a stringa per fare cout

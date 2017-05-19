@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mainbkgnd = QPixmap("img/main.jpg");
 }
 
 MainWindow::~MainWindow()
@@ -25,4 +26,12 @@ void MainWindow::on_play_clicked() //per passare da schermataplay a schermatacho
 void MainWindow::on_quit_clicked()
 {
    close();
+}
+
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    mainbkgnd = mainbkgnd.scaled(this->size());
+    QPalette palette;
+    palette.setBrush(QPalette::Background, mainbkgnd);
+    this->setPalette(palette);
 }

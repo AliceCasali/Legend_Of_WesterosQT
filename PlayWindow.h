@@ -10,6 +10,7 @@
 #include "Stark.h"
 #include "WhiteWalkers.h"
 #include "Map.h"
+#define numCasate 6
 
 namespace Ui {
 class PlayWindow;
@@ -23,15 +24,17 @@ public:
     explicit PlayWindow(QWidget *parent = 0);
     ~PlayWindow();
 
-    void setHouseBaratheon();
+    /*void setHouseBaratheon();
     void setHouseGreyjoy();
     void setHouseLannister();
     void setHouseStark();
     void setHouseTargaryen();
-    void setHouseWhiteWalkers();
+    void setHouseWhiteWalkers();*/
 
     void paintEvent(QPaintEvent *) override;
     void mousePressEvent(QMouseEvent *eventPress) override;
+
+    void setHouse(string nameHouse);
 
 private slots:
     void on_attacca_clicked();
@@ -40,9 +43,18 @@ private:
     Ui::PlayWindow *ui;
     QPixmap bkgnd;
     QPixmap stark;
-    QPainter *painter;
-    Map mappa;
+    QPixmap lannister;
+    QPixmap baratheon;
+    QPixmap targaryen;
+    QPixmap greyjoy;
+    QPixmap whitewalkers;
 
+    Map mappa;
+    int vectHouses[numCasate];
+    int invaderRow;
+    int invaderColumn;
+    int defenderRow;
+    int defenderColumn;
 };
 
 

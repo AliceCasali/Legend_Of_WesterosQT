@@ -2,6 +2,9 @@
 #define CHOOSEWINDOW_H
 
 #include <QDialog>
+#include <string>
+
+using namespace std;
 
 namespace Ui {
 class ChooseWindow;
@@ -32,6 +35,7 @@ private slots:
 
 private:
     Ui::ChooseWindow *ui;
+    void startGame(string nameHouse);
 };
 
 #endif // CHOOSEWINDOW_H
