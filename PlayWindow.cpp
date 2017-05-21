@@ -16,17 +16,20 @@ p.setBrush(QPalette::Background, bg);
 //using namespace std;
 
 PlayWindow::PlayWindow(QWidget *parent) :
-    QDialog(parent), ui(new Ui::PlayWindow)
+    QDialog(parent), ui(new Ui::PlayWindow), bkgnd("img/westeros.jpg"), baratheon("img/baratheon.png"),
+    greyjoy("img/greyjoy.png"), lannister("img/lannister.png"), stark("img/stark.png"),
+    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png"),
+    invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
 {
     ui->setupUi(this);
 
-    bkgnd = QPixmap("img/westeros.jpg");
+    /*bkgnd = QPixmap("img/westeros.jpg");
     stark = QPixmap("img/stark.png");
     lannister = QPixmap("img/lannister.png");
     baratheon = QPixmap("img/baratheon.png");
     greyjoy = QPixmap("img/greyjoy.png");
     targaryen = QPixmap("img/targaryen.png");
-    whitewalkers = QPixmap("img/whitewalkers.png");
+    whitewalkers = QPixmap("img/whitewalkers.png");*/
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
@@ -39,7 +42,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
     WhiteWalkers::strategy = Army::randomStrategy();
 
     //creo la mappa
-    mappa = Map();
+    //mappa = Map();
 
     vectHouses[0] = 'B';
     vectHouses[1] = 'G';
@@ -48,10 +51,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
     vectHouses[4] = 'T';
     vectHouses[5] = 'W';
 
-    invaderRow = -1;
-    invaderColumn = -1;
-    defenderRow = -1;
-    defenderColumn = -1;
+
 
 }
 
@@ -62,53 +62,9 @@ PlayWindow::~PlayWindow()
     delete ui;
 }
 
-/*void PlayWindow::setHouseBaratheon()
-{
-    Baratheon* player;
-    player=new Baratheon;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-
-}
-
-void PlayWindow::setHouseGreyjoy()
-{
-    Greyjoy* player;
-    player=new Greyjoy;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-
-}
-
-void PlayWindow::setHouseLannister()
-{
-    Lannister* player;
-    player=new Lannister;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-}
-
-void PlayWindow::setHouseStark()
-{
-    Stark* player;
-    player=new Stark;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-}
-
-void PlayWindow::setHouseTargaryen()
-{
-    Targaryen*player;
-    player=new Targaryen;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-}
-
-void PlayWindow::setHouseWhiteWalkers()
-{
-    WhiteWalkers* player;
-    player=new WhiteWalkers;
-    ui->label->setText(QString::fromStdString(std::string(player->getName())));
-}*/
-
 void PlayWindow::paintEvent(QPaintEvent *)
 {
-    //QPainter painter(&bkgnd);
+    bkgnd = bkgnd.scaled(this->size());
     // andrà modificato per togliere l'errore
     QPainter painter(&bkgnd);
     // ..
@@ -146,15 +102,9 @@ void PlayWindow::paintEvent(QPaintEvent *)
                     break;
             }
             painter.drawPixmap(x, y, w, h, *stemma);
-
-
         }
     }
 
-
-    //painter2.drawPixmap(0, 0, 100, 100, stark);
-
-    bkgnd = bkgnd.scaled(this->size());
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);

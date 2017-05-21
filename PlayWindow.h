@@ -24,13 +24,6 @@ public:
     explicit PlayWindow(QWidget *parent = 0);
     ~PlayWindow();
 
-    /*void setHouseBaratheon();
-    void setHouseGreyjoy();
-    void setHouseLannister();
-    void setHouseStark();
-    void setHouseTargaryen();
-    void setHouseWhiteWalkers();*/
-
     void paintEvent(QPaintEvent *) override;
     void mousePressEvent(QMouseEvent *eventPress) override;
 
@@ -42,11 +35,11 @@ private slots:
 private:
     Ui::PlayWindow *ui;
     QPixmap bkgnd;
-    QPixmap stark;
-    QPixmap lannister;
     QPixmap baratheon;
-    QPixmap targaryen;
     QPixmap greyjoy;
+    QPixmap lannister;
+    QPixmap stark;
+    QPixmap targaryen;
     QPixmap whitewalkers;
 
     Map mappa;

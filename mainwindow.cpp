@@ -5,10 +5,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow), mainbkgnd("img/main.jpg")
 {
     ui->setupUi(this);
-    mainbkgnd = QPixmap("img/main.jpg");
 }
 
 MainWindow::~MainWindow()
