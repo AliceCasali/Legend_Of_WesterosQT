@@ -1,6 +1,7 @@
 #include "PlayWindow.h"
 #include "ui_playwindow.h"
 #include "iostream"
+#include "math.h"
 
 #include <QString>
 #include <QMouseEvent>
@@ -23,14 +24,6 @@ PlayWindow::PlayWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    /*bkgnd = QPixmap("img/westeros.jpg");
-    stark = QPixmap("img/stark.png");
-    lannister = QPixmap("img/lannister.png");
-    baratheon = QPixmap("img/baratheon.png");
-    greyjoy = QPixmap("img/greyjoy.png");
-    targaryen = QPixmap("img/targaryen.png");
-    whitewalkers = QPixmap("img/whitewalkers.png");*/
-
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
     //assegno una strategy casuale ad ogni casata
@@ -41,18 +34,12 @@ PlayWindow::PlayWindow(QWidget *parent) :
     Targaryen::strategy = Army::randomStrategy();
     WhiteWalkers::strategy = Army::randomStrategy();
 
-    //creo la mappa
-    //mappa = Map();
-
     vectHouses[0] = 'B';
     vectHouses[1] = 'G';
     vectHouses[2] = 'L';
     vectHouses[3] = 'S';
     vectHouses[4] = 'T';
     vectHouses[5] = 'W';
-
-
-
 }
 
 
@@ -64,15 +51,15 @@ PlayWindow::~PlayWindow()
 
 void PlayWindow::paintEvent(QPaintEvent *)
 {
-    bkgnd = bkgnd.scaled(this->size());
+    bkgnd = bkgnd.scaled(this->ui->vistaMappa->size());
     // andrà modificato per togliere l'errore
     QPainter painter(&bkgnd);
     // ..
 
     QPixmap *stemma;
     int w, h;
-    w = bkgnd.width()/mappa.getNumColumns();
-    h = bkgnd.height()/mappa.getNumRows();
+    w = ui->vistaMappa->width()/mappa.getNumColumns();
+    h = ui->vistaMappa->height()/mappa.getNumRows();
 
     for(int i = 0; i<mappa.getNumRows(); i++){
         for(int j = 0; j<mappa.getNumColumns(); j++){
@@ -105,9 +92,14 @@ void PlayWindow::paintEvent(QPaintEvent *)
         }
     }
 
-    QPalette palette;
+    /*QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
+    this->ui->vistaMappa->setPalette(palette);*/
+
+    ui->vistaMappa->setPixmap(bkgnd);
+
+    /*ui->vistaMappa->render(&painter);
+    ui->vistaMappa->show();*/
 
     //delete stemma;
 }
@@ -117,8 +109,8 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
     QPoint p = eventPress->pos();
     cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
     int w, h;
-    w = bkgnd.width()/mappa.getNumColumns();
-    h = bkgnd.height()/mappa.getNumRows();
+    w = ui->vistaMappa->width()/mappa.getNumColumns();
+    h = ui->vistaMappa->height()/mappa.getNumRows();
     int i = p.y()/h;
     int j = p.x()/w;
     Territory territory = mappa.readTerritory(i, j);
@@ -138,13 +130,16 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
             return;
         }
 
-        if(defenderRow == -1){
-            if(territory.isEarth()){
-                if(vectHouses[0] != territory.getArmy()->getName()[0]){
-                    defenderRow = i;
-                    defenderColumn = j;
-                    // eventualmente mostro qualcosa graficamente
-                    cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
+        if(defenderRow == -1){  //controllo che sia dentro la mappa
+            if(territory.isEarth()){  //controllo acqua
+                if(vectHouses[0] != territory.getArmy()->getName()[0]){  //controllo che non sia territorio invader
+                    if(abs(i-invaderRow) <= 1 && abs(j-invaderColumn) <= 1) //controllo confinanti
+                    {
+                        defenderRow = i;
+                        defenderColumn = j;
+                        // eventualmente mostro qualcosa graficamente
+                        cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
+                    }
                 }
             }
             return;
