@@ -35,6 +35,7 @@ private slots:
 private:
     Ui::PlayWindow *ui;
     QPixmap bkgnd;
+    QPixmap westeros;
     QPixmap baratheon;
     QPixmap greyjoy;
     QPixmap lannister;

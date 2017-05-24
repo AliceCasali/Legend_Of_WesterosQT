@@ -17,7 +17,7 @@ p.setBrush(QPalette::Background, bg);
 //using namespace std;
 
 PlayWindow::PlayWindow(QWidget *parent) :
-    QDialog(parent), ui(new Ui::PlayWindow), bkgnd("img/westeros.jpg"), baratheon("img/baratheon.png"),
+    QDialog(parent), ui(new Ui::PlayWindow), bkgnd("img/westeros.jpg"), westeros("img/westeros.jpg"), baratheon("img/baratheon.png"),
     greyjoy("img/greyjoy.png"), lannister("img/lannister.png"), stark("img/stark.png"),
     targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png"),
     invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
@@ -54,13 +54,12 @@ void PlayWindow::paintEvent(QPaintEvent *)
     bkgnd = bkgnd.scaled(this->ui->vistaMappa->size());
     // andrà modificato per togliere l'errore
     QPainter painter(&bkgnd);
-    // ..
+    painter.drawPixmap(0, 0, ui->vistaMappa->width(), ui->vistaMappa->height(), westeros);
 
     QPixmap *stemma;
     int w, h;
     w = ui->vistaMappa->width()/mappa.getNumColumns();
     h = ui->vistaMappa->height()/mappa.getNumRows();
-
     for(int i = 0; i<mappa.getNumRows(); i++){
         for(int j = 0; j<mappa.getNumColumns(); j++){
             Territory territory = mappa.readTerritory(i, j);
@@ -107,7 +106,11 @@ void PlayWindow::paintEvent(QPaintEvent *)
 void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
 {
     QPoint p = eventPress->pos();
+    QPoint topleft = ui->vistaMappa->pos();
+    p = p - topleft;
     cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
+    if(p.x() < 0 || p.x() >= ui->vistaMappa->width() || p.y() < 0 || p.y() >= ui->vistaMappa->height())
+        return;
     int w, h;
     w = ui->vistaMappa->width()/mappa.getNumColumns();
     h = ui->vistaMappa->height()/mappa.getNumRows();
