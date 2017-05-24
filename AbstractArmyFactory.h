@@ -6,9 +6,7 @@
 #define LEGENDS_OF_WESTEROS_ABSTRACTARMYFACTORY_H
 
 #include "Army.h"
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
-#include "Lannister.h"
+#include "Troop.h"
 
 enum class house {Lannister, Stark, Greyjoy, Targaryen, WhiteWalkers, Baratheon};
 

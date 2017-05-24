@@ -3,20 +3,12 @@
 //
 
 #include "Greyjoy.h"
-#include "Archer.h"
-#include "Wizard.h"
 
 Strategy Greyjoy::strategy = Strategy::onlySimple;
-Greyjoy::Greyjoy() : Army(3, 32) {
-    simpleTroop = new Archer();
-    magicTroop = new Wizard();
-}
 
-Greyjoy::Greyjoy(int nw, int na) : Army(nw, na) {
-    simpleTroop = new Archer();
-    magicTroop = new Wizard();
-}
 
+Greyjoy::Greyjoy(int numMagic,int numSimple, float magicStrength, float simpleStrength) : Army(numMagic, numSimple, magicStrength, simpleStrength) {
+}
 
 string Greyjoy::getName() {
     return "Greyjoy";

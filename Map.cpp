@@ -41,22 +41,22 @@ Map::Map() : rows(numRows), columns(numCols) {
                     matrix[i][j] = Territory(false);
                     break;
                 case 1:
-                    matrix[i][j] = Territory(new Stark());
+                    matrix[i][j] = Territory(new Stark(10, 25, 4, 1.5));
                     break;
                 case 2:
-                    matrix[i][j] = Territory(new Lannister());
+                    matrix[i][j] = Territory(new Lannister(4, 35, 9, 1.5));
                     break;
                 case 3:
-                    matrix[i][j] = Territory(new Greyjoy());
+                    matrix[i][j] = Territory(new Greyjoy(3, 32, 4, 1.5));
                     break;
                 case 4:
-                    matrix[i][j] = Territory(new Baratheon());
+                    matrix[i][j] = Territory(new Baratheon(8, 7, 5.5, 3.5));
                     break;
                 case 5:
-                    matrix[i][j] = Territory(new WhiteWalkers());
+                    matrix[i][j] = Territory(new WhiteWalkers(20, 5, 3.5, 3.5));
                     break;
                 case 6:
-                    matrix[i][j] = Territory(new Targaryen());
+                    matrix[i][j] = Territory(new Targaryen(5, 30, 9, 1.5));
                     break;
             }
 
@@ -269,4 +269,17 @@ int Map::controlledCall(int row, int col, bool isInvader, string armyName, vecto
         return 0;
     if (matrix[row][col].getArmy()->getName() == armyName) //controllo armata
         return calculateStrengthRecursive(row, col, isInvader, calculatedMat);
+}
+
+void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
+    numMagic = 0;
+    numSimple = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if(matrix[i][j].isEarth() && matrix[i][j].getArmy()->getName() == nomeCasata){
+                numMagic += matrix[i][j].getArmy()->getNumMagicTroops();
+                numSimple += matrix[i][j].getArmy()->getNumSimpleTroops();
+            }
+        }
+    }
 }

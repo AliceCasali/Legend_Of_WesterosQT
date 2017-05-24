@@ -3,19 +3,10 @@
 //
 
 #include "Lannister.h"
-#include "Dragon.h"
-#include "Archer.h"
 
 Strategy Lannister::strategy = Strategy::onlySimple;
 
-Lannister::Lannister() : Army(4, 35) {
-    simpleTroop = new Archer();
-    magicTroop = new Dragon();
-}
-
-Lannister::Lannister(int nd, int na) : Army(nd, na) {
-    simpleTroop = new Archer();
-    magicTroop = new Dragon();
+Lannister::Lannister(int numMagic,int numSimple, float magicStrength, float simpleStrength) : Army(numMagic, numSimple, magicStrength, simpleStrength) {
 }
 
 string Lannister::getName() {

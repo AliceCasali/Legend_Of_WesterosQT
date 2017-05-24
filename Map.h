@@ -37,6 +37,7 @@ public:
     }
 
     bool conquer(int invaderRow, int invaderColumn, int defenderRow, int defenderColumn);
+    void countTroops(string nomeCasata, int &numMagic, int &numSimple);
 
     //static int numRows, numCols;
 
@@ -48,7 +49,6 @@ private:
     float calculateStrength(int initialRow, int initialColumn, bool isInvader);
     float calculateStrengthRecursive(int initialRow, int initialColumn, bool isInvader, vector<vector<bool>> &calculatedMat);
     int controlledCall(int row, int col, bool isInvader, string armyName, vector<vector<bool>> &calculatedMat);
-
 };
 
 

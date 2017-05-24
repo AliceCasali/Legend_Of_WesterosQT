@@ -7,13 +7,11 @@
 
 
 #include "Army.h"
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 
 class WhiteWalkers : public Army{
 public:
-    WhiteWalkers();
-    WhiteWalkers(int nz,int nk);
+    WhiteWalkers(int numMagic,int numSimple, float magicStrength, float simpleStrength);
     string getName() override;
     Strategy getStrategy() override;
 

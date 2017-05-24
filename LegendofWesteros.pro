@@ -26,51 +26,35 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     AbstractArmyFactory.cpp \
-    Archer.cpp \
     Army.cpp \
     Baratheon.cpp \
     ConcreteArmyFactory.cpp \
-    Dragon.cpp \
     Greyjoy.cpp \
-    Knight.cpp \
     Lannister.cpp \
-    MagicTroop.cpp \
     Map.cpp \
-    RedWizard.cpp \
-    SimpleTroop.cpp \
-    Soldier.cpp \
     Stark.cpp \
     Targaryen.cpp \
     Territory.cpp \
     WhiteWalkers.cpp \
-    Wizard.cpp \
-    Zombie.cpp \
     ChooseWindow.cpp \
-    PlayWindow.cpp
+    PlayWindow.cpp \
+    Troop.cpp
 
 HEADERS  += mainwindow.h \
     AbstractArmyFactory.h \
-    Archer.h \
     Army.h \
     Baratheon.h \
     ConcreteArmyFactory.h \
-    Dragon.h \
     Greyjoy.h \
-    Knight.h \
     Lannister.h \
-    MagicTroop.h \
     Map.h \
-    RedWizard.h \
-    SimpleTroop.h \
-    Soldier.h \
     Stark.h \
     Targaryen.h \
     Territory.h \
     WhiteWalkers.h \
-    Wizard.h \
-    Zombie.h \
     ChooseWindow.h \
-    PlayWindow.h
+    PlayWindow.h \
+    Troop.h
 
 FORMS    += mainwindow.ui \
     choosewindow.ui \

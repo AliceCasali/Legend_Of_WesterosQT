@@ -19,7 +19,7 @@ p.setBrush(QPalette::Background, bg);
 PlayWindow::PlayWindow(QWidget *parent) :
     QDialog(parent), ui(new Ui::PlayWindow), bkgnd("img/westeros.jpg"), westeros("img/westeros.jpg"), baratheon("img/baratheon.png"),
     greyjoy("img/greyjoy.png"), lannister("img/lannister.png"), stark("img/stark.png"),
-    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png"),
+    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png"), heart("img/heart.png"), cross("img/cross.png"),
     invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
 {
     ui->setupUi(this);
@@ -40,6 +40,8 @@ PlayWindow::PlayWindow(QWidget *parent) :
     vectHouses[3] = 'S';
     vectHouses[4] = 'T';
     vectHouses[5] = 'W';
+
+    refreshLabels();
 }
 
 
@@ -91,16 +93,11 @@ void PlayWindow::paintEvent(QPaintEvent *)
         }
     }
 
-    /*QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->ui->vistaMappa->setPalette(palette);*/
+    if(invaderRow != -1){
+        painter.drawPixmap(invaderColumn * w, invaderRow * h, w, h, heart);
+    }
 
     ui->vistaMappa->setPixmap(bkgnd);
-
-    /*ui->vistaMappa->render(&painter);
-    ui->vistaMappa->show();*/
-
-    //delete stemma;
 }
 
 void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
@@ -148,11 +145,15 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
             return;
         }
 
-
-
         break;
     case Qt::RightButton:
         cout << "Premuto clic dx" << endl;
+
+        ui->labelNome->setText("<html><head/><body><b>" + QString::fromStdString(territory.getArmy()->getName()) + "</b></body></html>");
+        ui->labelSemplici->setText("<html><head/><body><p>Truppe semplici: " + QString::number(territory.getArmy()->getNumSimpleTroops()) + "</p></body></html> ");
+        ui->labelMagici->setText("<html><head/><body><p>Truppe magiche: " + QString::number(territory.getArmy()->getNumMagicTroops()) + "</p></body></html> ");
+        ui->labelPotenza->setText("<html><head/><body><p>Potenza esercito: " + QString::number(territory.getArmy()->getPower()) + "</p></body></html> ");
+
     }
 }
 
@@ -186,4 +187,36 @@ void PlayWindow::setHouse(string nameHouse)
 void PlayWindow::on_attacca_clicked()
 {
     mappa.show();
+    //...gestione attacco
+    refreshLabels();
+}
+
+void PlayWindow::refreshLabels()
+{
+    int numMagic;
+    int numSimple;
+
+    mappa.countTroops("Baratheon", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Baratheon:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+
+    mappa.countTroops("Greyjoy", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Greyjoy:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+
+    mappa.countTroops("Lannister", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Lannister:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+
+    mappa.countTroops("Stark", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Stark:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+
+    mappa.countTroops("Targaryen", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Targaryen:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+
+    mappa.countTroops("WhiteWalkers", numMagic, numSimple);
+    ui->labelBaratheon->setText("<html><head/><body><p><b>WhiteWalkers:<b></p><p>Semplici " +
+                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
 }

@@ -2,10 +2,10 @@
 // Created by acasali on 27/11/16.
 //
 
-#include "SimpleTroop.h"
+#include "Troop.h"
 
 
 
-float SimpleTroop::getStrenght() {
+float Troop::getStrenght() {
     return strenght;
 }

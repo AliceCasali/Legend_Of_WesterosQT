@@ -5,14 +5,12 @@
 #ifndef LEGENDS_OF_WESTEROS_BARATHEON_H
 #define LEGENDS_OF_WESTEROS_BARATHEON_H
 
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 #include "Army.h"
 
 class Baratheon : public Army {
 public:
-    Baratheon();
-    Baratheon(int nrw,int nk);
+    Baratheon(int numMagic,int numSimple, float magicStrength, float simpleStrength);
     string getName() override;
     Strategy getStrategy() override;
 

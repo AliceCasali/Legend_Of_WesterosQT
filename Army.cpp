@@ -20,7 +20,7 @@ float Army::getSimplePower() {
 }
 
 float Army::getMagicPower() {
-    return magicTroop->getMagic() * numMagic;
+    return magicTroop->getStrenght() * numMagic;
 }
 
 int Army::getNumSimpleTroops() {

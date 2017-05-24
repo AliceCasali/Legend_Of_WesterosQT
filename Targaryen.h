@@ -6,15 +6,11 @@
 #define LEGENDS_OF_WESTEROS_TARGARYEN_H
 
 #include "Army.h"
-#include "Soldier.h"
-#include "Dragon.h"
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 
 class Targaryen : public Army {
 public:
-    Targaryen();
-    Targaryen(int nd,int ns);
+    Targaryen(int numMagic,int numSimple, float magicStrength, float simpleStrength);
     string getName() override;
     Strategy getStrategy() override;
 

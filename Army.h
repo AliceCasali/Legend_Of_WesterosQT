@@ -6,8 +6,7 @@
 #define LEGENDS_OF_WESTEROS_ARMYFACTORY_H
 
 #include <string>
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 //#include "AbstractArmyFactory.h"
 
 using namespace std;
@@ -17,7 +16,8 @@ enum class Strategy {onlyMagic, onlySimple, lessDefense};
 
 class Army {
 public:
-    Army(int m, int s) : numMagic(m), numSimple(s){}
+    Army(int m, int s, float magicStrength, float simpleStrength) : numMagic(m), numSimple(s),
+        magicTroop(new Troop(magicStrength)), simpleTroop(new Troop(simpleStrength)){}
     virtual ~Army();
 
     virtual string getName() = 0;
@@ -37,8 +37,8 @@ public:
 protected:
     int numMagic;
     int numSimple;
-    MagicTroop* magicTroop;
-    SimpleTroop* simpleTroop;
+    Troop* magicTroop;
+    Troop* simpleTroop;
 
 };
 

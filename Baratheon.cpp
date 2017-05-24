@@ -3,19 +3,10 @@
 //
 
 #include "Baratheon.h"
-#include "RedWizard.h"
-#include "Knight.h"
 
 Strategy Baratheon::strategy = Strategy::onlySimple;
 
-Baratheon::Baratheon() : Army(8, 7) {
-    simpleTroop = new Knight();
-    magicTroop = new RedWizard();
-}
-
-Baratheon::Baratheon(int nrw, int nk) : Army(nrw, nk) {
-    simpleTroop = new Knight();
-    magicTroop = new RedWizard();
+Baratheon::Baratheon(int numMagic,int numSimple, float magicStrength, float simpleStrength) : Army(numMagic, numSimple, magicStrength, simpleStrength) {
 }
 
 string Baratheon::getName() {

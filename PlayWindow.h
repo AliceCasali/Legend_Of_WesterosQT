@@ -33,6 +33,8 @@ private slots:
     void on_attacca_clicked();
 
 private:
+    void refreshLabels();
+
     Ui::PlayWindow *ui;
     QPixmap bkgnd;
     QPixmap westeros;
@@ -42,6 +44,8 @@ private:
     QPixmap stark;
     QPixmap targaryen;
     QPixmap whitewalkers;
+    QPixmap heart;
+    QPixmap cross;
 
     Map mappa;
     int vectHouses[numCasate];

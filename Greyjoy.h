@@ -7,13 +7,11 @@
 
 
 #include "Army.h"
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 
 class Greyjoy : public Army {
 public:
-    Greyjoy();
-    Greyjoy(int nw,int na);
+    Greyjoy(int numMagic,int numSimple, float magicStrength, float simpleStrength);
     string getName() override;
     Strategy getStrategy() override;
 

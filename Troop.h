@@ -6,17 +6,15 @@
 #define LEGENDS_OF_WESTEROS_SIMPLETROOP_H
 
 
-class SimpleTroop{
+class Troop{
 public:
-    SimpleTroop(float defense, float attack) : defense(defense), attack(attack) { }
+    Troop(float strenght) : strenght(strenght){ }
 
-    virtual ~SimpleTroop() {}
+    virtual ~Troop() {}
 
     virtual float getStrenght();
 
 protected:
-    float defense;
-    float attack;
     float strenght;
 };
 

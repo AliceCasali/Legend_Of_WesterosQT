@@ -5,15 +5,13 @@
 #ifndef LEGENDS_OF_WESTEROS_LANNISTER_H
 #define LEGENDS_OF_WESTEROS_LANNISTER_H
 
-#include "SimpleTroop.h"
-#include "MagicTroop.h"
+#include "Troop.h"
 #include "Army.h"
 
 
 class Lannister : public Army{
 public:
-    Lannister();
-    Lannister(int nd,int na);
+    Lannister(int numMagic,int numSimple, float magicStrength, float simpleStrength);
     string getName() override;
     Strategy getStrategy() override;
 
