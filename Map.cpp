@@ -119,21 +119,18 @@ void Map::show() {
 }
 
 //ritorna true se il combattimento è stato effettuato
-bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defenderColumn) {
+bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defenderColumn, bool &esito) {
 
     // controlli su indici
     if (!(invaderColumn < columns && invaderColumn >= 0 && invaderRow < rows && invaderRow >= 0))
         return false;
-    if (!(invaderColumn < columns && invaderColumn >= 0 && defenderRow < rows && defenderRow >= 0))
+    if (!(defenderColumn < columns && defenderColumn >= 0 && defenderRow < rows && defenderRow >= 0))
         return false;
 
     // assegno variabili
     Army *invader, *defender;
     invader = matrix[invaderRow][invaderColumn].getArmy();
     defender = matrix[defenderRow][defenderColumn].getArmy();
-
-    // TODO: controlli su variabili (casate differenti, acqua ecc.)
-    // ...
 
     // calcolo le forze tenendo conto delle varie strategy
     int invaderStrength, defenderStrength;
@@ -149,6 +146,7 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
     int numMagTroops;
     if (result < invaderStrength) {
         //vince invader
+        esito = true;
         cout << "ha vinto l'invasore: " << matrix[invaderRow][invaderColumn].getArmy()->getName() << endl;
         numSimTroops = defender->getNumSimpleTroops() * 70 / 100;
         numMagTroops = defender->getNumMagicTroops() * 70 / 100;
@@ -169,6 +167,7 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
     }
     else {
         //vince defender
+        esito = false;
         cout << "ha vinto il difensore: " << matrix[defenderRow][defenderColumn].getArmy()->getName() << endl;
         numSimTroops = invader->getNumSimpleTroops() * 70 / 100;
         numMagTroops = invader->getNumMagicTroops() * 70 / 100;
@@ -195,7 +194,7 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
 }
 
 float Map::calculateStrength(int initialRow, int initialColumn, bool isInvader) {
-    // crea e inizializza una matrice temporanea per vedere se ho già contato un territorio
+    //crea e inizializza una matrice temporanea per vedere se ho già contato un territorio
     //bool calculatedMat[rows][columns];
     vector<vector<bool>> calculatedMat;
     for (int i = 0; i < rows; i++)
@@ -214,14 +213,14 @@ float Map::calculateStrength(int initialRow, int initialColumn, bool isInvader) 
 float Map::calculateStrengthRecursive(int row, int col, bool isInvader, vector<vector<bool>> &calculatedMat) {
     if (!(col < columns && col >= 0 && row < rows && row >= 0))
         return 0;
-    if (calculatedMat[row][col] == 1)
+    if (calculatedMat[row][col] == true)
         return 0;
     //voleva un puntatore a matrice ma errore quindi vettore di vettori di bool
     Army *army = matrix[row][col].getArmy();
 
     // tra qui e...
     float power;
-    calculatedMat[row][col] = 1;
+    calculatedMat[row][col] = true;
     Strategy whichStrategy = army->getStrategy();
     switch(whichStrategy){
         case Strategy::onlyMagic:
@@ -261,7 +260,7 @@ float Map::calculateStrengthRecursive(int row, int col, bool isInvader, vector<v
 
 }
 
-int Map::controlledCall(int row, int col, bool isInvader, string armyName, vector<vector<bool>> &calculatedMat)
+float Map::controlledCall(int row, int col, bool isInvader, string armyName, vector<vector<bool>> &calculatedMat)
 {
     if (!(col < columns && col >= 0 && row < rows && row >= 0)) //controllo confini
         return 0;
@@ -282,4 +281,17 @@ void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
             }
         }
     }
+}
+
+bool Map::hasEnemies(int row, int column){
+    for(int i = row - 1; i <= row + 1; i++){
+        for(int j = column + 1; j <= column + 1; j++){
+            if(i >= 0 && i < getNumRows() && j >= 0 && j < getNumColumns() &&
+                    readTerritory(i, j).isEarth() &&
+                    readTerritory(row, column).getArmy()->getName()[0] != readTerritory(i, j).getArmy()->getName()[0]){
+                return true;
+            }
+        }
+    }
+    return false;
 }

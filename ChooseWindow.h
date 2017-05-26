@@ -17,6 +17,7 @@ class ChooseWindow : public QDialog
 public:
     explicit ChooseWindow(QWidget *parent = 0);
     ~ChooseWindow();
+    void paintEvent(QPaintEvent *) override;
 
 private slots:
     void on_back_clicked();
@@ -36,6 +37,8 @@ private slots:
 private:
     Ui::ChooseWindow *ui;
     void startGame(string nameHouse);
+    QPixmap barriera;
+    QPixmap greyjoy;
 };
 
 #endif // CHOOSEWINDOW_H

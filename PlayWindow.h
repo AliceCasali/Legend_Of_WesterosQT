@@ -10,7 +10,6 @@
 #include "Stark.h"
 #include "WhiteWalkers.h"
 #include "Map.h"
-#define numCasate 6
 
 namespace Ui {
 class PlayWindow;
@@ -44,11 +43,12 @@ private:
     QPixmap stark;
     QPixmap targaryen;
     QPixmap whitewalkers;
-    QPixmap heart;
+    QPixmap crown;
     QPixmap cross;
+    QPixmap tic;
 
     Map mappa;
-    int vectHouses[numCasate];
+    vector<char> vectHouses;
     int invaderRow;
     int invaderColumn;
     int defenderRow;

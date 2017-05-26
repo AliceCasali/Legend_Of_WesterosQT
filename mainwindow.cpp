@@ -15,7 +15,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_play_clicked() //per passare da schermataplay a schermatachoose
+void MainWindow::on_play_clicked() //per passare da schermatamain a schermatachoose
 {
     ChooseWindow addView;
     close();
@@ -29,8 +29,9 @@ void MainWindow::on_quit_clicked()
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
-    mainbkgnd = mainbkgnd.scaled(this->size());
+    /*mainbkgnd = mainbkgnd.scaled(this->size());
     QPalette palette;
     palette.setBrush(QPalette::Background, mainbkgnd);
-    this->setPalette(palette);
+    this->setPalette(palette);*/
+    //ui->centralWidget->
 }

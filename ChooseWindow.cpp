@@ -8,7 +8,7 @@
 
 ChooseWindow::ChooseWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ChooseWindow)
+    ui(new Ui::ChooseWindow), barriera("img/barriera.jpg"), greyjoy("img/greyjoy.png")
 {
     ui->setupUi(this);
 }
@@ -61,3 +61,18 @@ void ChooseWindow::startGame(string nameHouse)
     close();
     addView.exec();
 }
+
+
+void ChooseWindow::paintEvent(QPaintEvent *)
+{
+    /*barriera = barriera.scaled(this->size());
+    QPalette palette;
+    palette.setBrush(QPalette::Background, barriera);
+    this->setPalette(palette);*/
+
+    /*QPainter painter(&greyjoy);
+    greyjoy = greyjoy.scaled(ui->labGreyjoy->size());
+    painter.drawPixmap(0, 0, ui->labGreyjoy->width(), ui->labGreyjoy->height(), greyjoy);
+    ui->labGreyjoy->setPixmap(greyjoy);*/
+}
+
