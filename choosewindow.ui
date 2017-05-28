@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>444</height>
+    <width>835</width>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,16 +44,29 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="greyjoy">
+      <widget class="QPushButton" name="btnBaratheon">
        <property name="text">
-        <string>Greyjoy</string>
+        <string>Baratheon</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labGreyjoy">
+      <widget class="QLabel" name="labBaratheon">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    background-image: url(img/baratheon.png);
+	background-position: center;
+    background-origin: content;
+}</string>
+       </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -62,47 +75,125 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="stark">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-image: url(img/stark.png);
-	background-position: center;
-}</string>
+      <widget class="QPushButton" name="btnGreyjoy">
+       <property name="text">
+        <string>Greyjoy</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labGreyjoy">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="text">
-        <string>Stark</string>
+        <string/>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="targaryen">
-     <property name="text">
-      <string>Targaryen</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="btnLannister">
+       <property name="text">
+        <string>Lannister</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labLannister">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="baratheon">
-     <property name="text">
-      <string>Baratheon</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QPushButton" name="btnStark">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Stark</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labStark">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="whitewalkers">
-     <property name="text">
-      <string>WhiteWalkers</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QPushButton" name="btnTargaryen">
+       <property name="text">
+        <string>Targaryen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labTargaryen">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="lannister">
-     <property name="text">
-      <string>Lannister</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QPushButton" name="btnWhiteWalkers">
+       <property name="text">
+        <string>WhiteWalkers</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labWhiteWalkers">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QPushButton" name="back">

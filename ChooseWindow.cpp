@@ -8,9 +8,18 @@
 
 ChooseWindow::ChooseWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ChooseWindow), barriera("img/barriera.jpg"), greyjoy("img/greyjoy.png")
+    ui(new Ui::ChooseWindow), barriera("img/barriera.jpg")/*, baratheon("img/baratheon.png"),
+    greyjoy("img/greyjoy.png"), lannister("img/lannister.png"), stark("img/stark.png"),
+    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png")*/
 {
     ui->setupUi(this);
+
+    ui->labBaratheon->setVisible(false);
+    ui->labGreyjoy->setVisible(false);
+    ui->labLannister->setVisible(false);
+    ui->labStark->setVisible(false);
+    ui->labTargaryen->setVisible(false);
+    ui->labWhiteWalkers->setVisible(false);
 }
 
 ChooseWindow::~ChooseWindow()
@@ -23,32 +32,33 @@ void ChooseWindow::on_back_clicked()
     close();
 }
 
-void ChooseWindow::on_targaryen_clicked()
+void ChooseWindow::on_btnTargaryen_clicked()
 {
     startGame("Targaryen");
 }
 
-void ChooseWindow::on_stark_clicked()
+void ChooseWindow::on_btnStark_clicked()
 {
     startGame("Stark");
 }
 
-void ChooseWindow::on_greyjoy_clicked()
+
+void ChooseWindow::on_btnGreyjoy_clicked()
 {
     startGame("Greyjoy");
 }
 
-void ChooseWindow::on_lannister_clicked()
+void ChooseWindow::on_btnLannister_clicked()
 {
     startGame("Lannister");
 }
 
-void ChooseWindow::on_whitewalkers_clicked()
+void ChooseWindow::on_btnWhiteWalkers_clicked()
 {
     startGame("WhiteWalkers");
 }
 
-void ChooseWindow::on_baratheon_clicked()
+void ChooseWindow::on_btnBaratheon_clicked()
 {
     startGame("Baratheon");
 }
@@ -65,14 +75,35 @@ void ChooseWindow::startGame(string nameHouse)
 
 void ChooseWindow::paintEvent(QPaintEvent *)
 {
-    /*barriera = barriera.scaled(this->size());
-    QPalette palette;
-    palette.setBrush(QPalette::Background, barriera);
-    this->setPalette(palette);*/
 
-    /*QPainter painter(&greyjoy);
+    /*baratheon = baratheon.scaled(ui->labBaratheon->size());
+    QPainter painterBaratheon(&baratheon);
+    painterBaratheon.drawPixmap(0, 0, ui->labBaratheon->width(), ui->labBaratheon->height(), baratheon);
+    ui->labBaratheon->setPixmap(baratheon);
+
     greyjoy = greyjoy.scaled(ui->labGreyjoy->size());
-    painter.drawPixmap(0, 0, ui->labGreyjoy->width(), ui->labGreyjoy->height(), greyjoy);
-    ui->labGreyjoy->setPixmap(greyjoy);*/
-}
+    QPainter painterGreyjoy(&greyjoy);
+    painterGreyjoy.drawPixmap(0, 0, ui->labGreyjoy->width(), ui->labGreyjoy->height(), greyjoy);
+    ui->labGreyjoy->setPixmap(greyjoy);
 
+    lannister = lannister.scaled(ui->labLannister->size());
+    QPainter painterLannister(&lannister);
+    painterLannister.drawPixmap(0, 0, ui->labLannister->width(), ui->labLannister->height(), lannister);
+    ui->labLannister->setPixmap(lannister);
+
+    stark = stark.scaled(ui->labStark->size());
+    QPainter painterStark(&stark);
+    painterStark.drawPixmap(0, 0, ui->labStark->width(), ui->labStark->height(), stark);
+    ui->labStark->setPixmap(stark);
+
+    targaryen = targaryen.scaled(ui->labTargaryen->size());
+    QPainter painterTargaryen(&targaryen);
+    painterTargaryen.drawPixmap(0, 0, ui->labTargaryen->width(), ui->labTargaryen->height(), targaryen);
+    ui->labTargaryen->setPixmap(targaryen);
+
+    whitewalkers = whitewalkers.scaled(ui->labWhiteWalkers->size());
+    QPainter painterWhiteWalkers(&whitewalkers);
+    painterWhiteWalkers.drawPixmap(0, 0, ui->labWhiteWalkers->width(), ui->labWhiteWalkers->height(), whitewalkers);
+    ui->labWhiteWalkers->setPixmap(whitewalkers);*/
+
+}

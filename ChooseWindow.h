@@ -22,23 +22,29 @@ public:
 private slots:
     void on_back_clicked();
 
-    void on_targaryen_clicked();
+    void on_btnTargaryen_clicked();
 
-    void on_stark_clicked();
+    void on_btnStark_clicked();
 
-    void on_greyjoy_clicked();
+    void on_btnLannister_clicked();
 
-    void on_lannister_clicked();
+    void on_btnWhiteWalkers_clicked();
 
-    void on_whitewalkers_clicked();
+    void on_btnBaratheon_clicked();
 
-    void on_baratheon_clicked();
+    void on_btnGreyjoy_clicked();
 
 private:
-    Ui::ChooseWindow *ui;
     void startGame(string nameHouse);
+
+    Ui::ChooseWindow *ui;
     QPixmap barriera;
+    /*QPixmap baratheon;
     QPixmap greyjoy;
+    QPixmap lannister;
+    QPixmap stark;
+    QPixmap targaryen;
+    QPixmap whitewalkers;*/
 };
 
 #endif // CHOOSEWINDOW_H

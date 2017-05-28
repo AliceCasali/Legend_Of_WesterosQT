@@ -285,7 +285,7 @@ void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
 
 bool Map::hasEnemies(int row, int column){
     for(int i = row - 1; i <= row + 1; i++){
-        for(int j = column + 1; j <= column + 1; j++){
+        for(int j = column - 1; j <= column + 1; j++){
             if(i >= 0 && i < getNumRows() && j >= 0 && j < getNumColumns() &&
                     readTerritory(i, j).isEarth() &&
                     readTerritory(row, column).getArmy()->getName()[0] != readTerritory(i, j).getArmy()->getName()[0]){

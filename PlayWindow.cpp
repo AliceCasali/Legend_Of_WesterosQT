@@ -190,13 +190,14 @@ void PlayWindow::on_attacca_clicked()
 {
     mappa.show();
     bool esito;
+    QString opponentName = QString::fromStdString(mappa.readTerritory(defenderRow, defenderColumn).getArmy()->getName());
     mappa.conquer(invaderRow, invaderColumn, defenderRow, defenderColumn, esito);
     QString resoconto("Hai ");
     if(esito)
         resoconto += "vinto ";
     else
         resoconto += "perso ";
-    resoconto += QString::fromStdString("contro le truppe " + mappa.readTerritory(defenderRow, defenderColumn).getArmy()->getName() + ".");
+    resoconto += QString("contro le truppe " + opponentName + ".");
 
     for(int k = 1; k < vectHouses.size(); k++){
         vector<QPoint> invaderEnemyArmies;
@@ -219,7 +220,7 @@ void PlayWindow::on_attacca_clicked()
 
         vector<QPoint> defenderEnemyArmies;
         for(int i = pi.y() - 1; i <= pi.y() + 1; i++){
-            for(int j = pi.x() + 1; j <= pi.x() + 1; j++){
+            for(int j = pi.x() - 1; j <= pi.x() + 1; j++){
                 if(i >= 0 && i < mappa.getNumRows() && j >= 0 && j < mappa.getNumColumns() &&
                         mappa.readTerritory(i, j).isEarth() && vectHouses[k] != mappa.readTerritory(i, j).getArmy()->getName()[0]){
                     defenderEnemyArmies.push_back(QPoint(j, i));
@@ -229,10 +230,11 @@ void PlayWindow::on_attacca_clicked()
         int randomDefender;
         randomDefender = rand() % defenderEnemyArmies.size();
         QPoint pd = defenderEnemyArmies[randomDefender];
+        opponentName = QString::fromStdString(mappa.readTerritory(pi.y(), pi.x()).getArmy()->getName());
         mappa.conquer(pi.y(), pi.x(), pd.y(), pd.x(), esito);
         if(mappa.readTerritory(pd.y(), pd.x()).getArmy()->getName()[0] == vectHouses[0]){
-            resoconto += QString::fromStdString("\nSei stato attaccatto dalle truppe " + mappa.readTerritory(pi.y(), pi.x()).getArmy()->getName() + " e hai ");
-            if(esito)
+            resoconto += QString("\nSei stato attaccatto dalle truppe " + opponentName + " e hai ");
+            if(!esito)
                 resoconto += "vinto.";
             else
                 resoconto += "perso.";
