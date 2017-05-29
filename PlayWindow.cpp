@@ -17,6 +17,26 @@ PlayWindow::PlayWindow(QWidget *parent) :
     invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
 {
     ui->setupUi(this);
+    ui->labelStark_2->setPixmap(stark.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelStark_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelBaratheon_2->setPixmap(baratheon.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelBaratheon_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelGreyjoy_2->setPixmap(greyjoy.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelGreyjoy_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelLannister_2->setPixmap(lannister.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelLannister_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelTargaryen_2->setPixmap(targaryen.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelTargaryen_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelWhiteWalkers_2->setPixmap(whitewalkers.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelWhiteWalkers_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labelLegend->setPixmap(crown.scaled(100, 100, Qt::KeepAspectRatio));
+
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
@@ -147,16 +167,16 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
         cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
     }
 
-    ui->labelNome->setText("<html><head/><body><b>" + QString::fromStdString(territory.getArmy()->getName()) + "</b></body></html>");
-    ui->labelSemplici->setText("<html><head/><body><p>Truppe semplici: " + QString::number(territory.getArmy()->getNumSimpleTroops()) + "</p></body></html> ");
-    ui->labelMagici->setText("<html><head/><body><p>Truppe magiche: " + QString::number(territory.getArmy()->getNumMagicTroops()) + "</p></body></html> ");
+    ui->labelName->setText("<html><head/><body><b>" + QString::fromStdString(territory.getArmy()->getName()) + "</b></body></html>");
+    ui->labelSimple->setText("<html><head/><body><p>Simple Troops: " + QString::number(territory.getArmy()->getNumSimpleTroops()) + "</p></body></html> ");
+    ui->labelMagic->setText("<html><head/><body><p>Magic Troops: " + QString::number(territory.getArmy()->getNumMagicTroops()) + "</p></body></html> ");
     float strength;
     if(territory.getArmy()->getName()[0] == vectHouses[0])
         strength = mappa.calculateStrength(i, j, true);
     else
         strength = mappa.calculateStrength(i, j, false);
 
-    ui->labelPotenza->setText("<html><head/><body><p>Potenza esercito: " + QString::number(strength) + "</p></body></html> ");
+    ui->labelPower->setText("<html><head/><body><p>Army Power: " + QString::number(strength) + "</p></body></html> ");
 }
 
 void PlayWindow::setHouse(string nameHouse)
@@ -310,26 +330,26 @@ void PlayWindow::refreshLabels()
     int numSimple;
 
     mappa.countTroops("Baratheon", numMagic, numSimple);
-    ui->labelBaratheon->setText("<html><head/><body><p><b>Baratheon:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelBaratheon->setText("<html><head/><body><p><b>Baratheon:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 
     mappa.countTroops("Greyjoy", numMagic, numSimple);
-    ui->labelGreyjoy->setText("<html><head/><body><p><b>Greyjoy:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelGreyjoy->setText("<html><head/><body><p><b>Greyjoy:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 
     mappa.countTroops("Lannister", numMagic, numSimple);
-    ui->labelLannister->setText("<html><head/><body><p><b>Lannister:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelLannister->setText("<html><head/><body><p><b>Lannister:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 
     mappa.countTroops("Stark", numMagic, numSimple);
-    ui->labelStark->setText("<html><head/><body><p><b>Stark:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelStark->setText("<html><head/><body><p><b>Stark:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 
     mappa.countTroops("Targaryen", numMagic, numSimple);
-    ui->labelTargaryen->setText("<html><head/><body><p><b>Targaryen:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelTargaryen->setText("<html><head/><body><p><b>Targaryen:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 
     mappa.countTroops("WhiteWalkers", numMagic, numSimple);
-    ui->labelWhiteWalkers->setText("<html><head/><body><p><b>WhiteWalkers:<b></p><p>Semplici " +
-                                QString::number(numSimple) + ", Magici " + QString::number(numMagic) + "</p></body></html> ");
+    ui->labelWhiteWalkers->setText("<html><head/><body><p><b>WhiteWalkers:<b></p><p>Simple " +
+                                QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
 }

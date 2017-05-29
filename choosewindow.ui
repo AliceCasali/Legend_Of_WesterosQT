@@ -10,6 +10,12 @@
     <height>708</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -30,7 +36,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <family>URW Chancery L</family>
+       <pointsize>40</pointsize>
        <weight>75</weight>
        <italic>true</italic>
        <bold>true</bold>
@@ -59,11 +66,7 @@
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLabel {
-    background-image: url(img/baratheon.png);
-	background-position: center;
-    background-origin: content;
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -175,6 +178,12 @@
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QPushButton" name="btnWhiteWalkers">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>WhiteWalkers</string>
        </property>
@@ -198,7 +207,7 @@
    <item>
     <widget class="QPushButton" name="back">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>

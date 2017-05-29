@@ -8,23 +8,35 @@
 
 ChooseWindow::ChooseWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ChooseWindow), barriera("img/barriera.jpg")/*, baratheon("img/baratheon.png"),
+    ui(new Ui::ChooseWindow), barriera("img/barriera.jpg"), baratheon("img/baratheon.png"),
     greyjoy("img/greyjoy.png"), lannister("img/lannister.png"), stark("img/stark.png"),
-    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png")*/
+    targaryen("img/targaryen.png"), whitewalkers("img/whitewalkers.png")
 {
     ui->setupUi(this);
 
-    ui->labBaratheon->setVisible(false);
-    ui->labGreyjoy->setVisible(false);
-    ui->labLannister->setVisible(false);
-    ui->labStark->setVisible(false);
-    ui->labTargaryen->setVisible(false);
-    ui->labWhiteWalkers->setVisible(false);
+    ui->labBaratheon->setPixmap(baratheon.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labBaratheon->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labGreyjoy->setPixmap(greyjoy.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labGreyjoy->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labLannister->setPixmap(lannister.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labLannister->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labStark->setPixmap(stark.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labStark->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labTargaryen->setPixmap(targaryen.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labTargaryen->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    ui->labWhiteWalkers->setPixmap(whitewalkers.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labWhiteWalkers->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
 }
 
 ChooseWindow::~ChooseWindow()
 {
-    delete ui;
+
 }
 
 void ChooseWindow::on_back_clicked()
@@ -54,7 +66,7 @@ void ChooseWindow::on_btnLannister_clicked()
 }
 
 void ChooseWindow::on_btnWhiteWalkers_clicked()
-{
+{ui->labBaratheon->setPixmap(baratheon.scaled(100, 100, Qt::KeepAspectRatio));
     startGame("WhiteWalkers");
 }
 
@@ -75,35 +87,5 @@ void ChooseWindow::startGame(string nameHouse)
 
 void ChooseWindow::paintEvent(QPaintEvent *)
 {
-
-    /*baratheon = baratheon.scaled(ui->labBaratheon->size());
-    QPainter painterBaratheon(&baratheon);
-    painterBaratheon.drawPixmap(0, 0, ui->labBaratheon->width(), ui->labBaratheon->height(), baratheon);
-    ui->labBaratheon->setPixmap(baratheon);
-
-    greyjoy = greyjoy.scaled(ui->labGreyjoy->size());
-    QPainter painterGreyjoy(&greyjoy);
-    painterGreyjoy.drawPixmap(0, 0, ui->labGreyjoy->width(), ui->labGreyjoy->height(), greyjoy);
-    ui->labGreyjoy->setPixmap(greyjoy);
-
-    lannister = lannister.scaled(ui->labLannister->size());
-    QPainter painterLannister(&lannister);
-    painterLannister.drawPixmap(0, 0, ui->labLannister->width(), ui->labLannister->height(), lannister);
-    ui->labLannister->setPixmap(lannister);
-
-    stark = stark.scaled(ui->labStark->size());
-    QPainter painterStark(&stark);
-    painterStark.drawPixmap(0, 0, ui->labStark->width(), ui->labStark->height(), stark);
-    ui->labStark->setPixmap(stark);
-
-    targaryen = targaryen.scaled(ui->labTargaryen->size());
-    QPainter painterTargaryen(&targaryen);
-    painterTargaryen.drawPixmap(0, 0, ui->labTargaryen->width(), ui->labTargaryen->height(), targaryen);
-    ui->labTargaryen->setPixmap(targaryen);
-
-    whitewalkers = whitewalkers.scaled(ui->labWhiteWalkers->size());
-    QPainter painterWhiteWalkers(&whitewalkers);
-    painterWhiteWalkers.drawPixmap(0, 0, ui->labWhiteWalkers->width(), ui->labWhiteWalkers->height(), whitewalkers);
-    ui->labWhiteWalkers->setPixmap(whitewalkers);*/
 
 }

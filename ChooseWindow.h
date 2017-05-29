@@ -39,12 +39,12 @@ private:
 
     Ui::ChooseWindow *ui;
     QPixmap barriera;
-    /*QPixmap baratheon;
+    QPixmap baratheon;
     QPixmap greyjoy;
     QPixmap lannister;
     QPixmap stark;
     QPixmap targaryen;
-    QPixmap whitewalkers;*/
+    QPixmap whitewalkers;
 };
 
 #endif // CHOOSEWINDOW_H

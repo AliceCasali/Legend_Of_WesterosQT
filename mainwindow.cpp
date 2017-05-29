@@ -29,9 +29,5 @@ void MainWindow::on_quit_clicked()
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
-    /*mainbkgnd = mainbkgnd.scaled(this->size());
-    QPalette palette;
-    palette.setBrush(QPalette::Background, mainbkgnd);
-    this->setPalette(palette);*/
-    //ui->centralWidget->
+
 }
