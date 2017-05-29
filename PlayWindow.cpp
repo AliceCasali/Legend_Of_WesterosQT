@@ -35,7 +35,16 @@ PlayWindow::PlayWindow(QWidget *parent) :
     ui->labelWhiteWalkers_2->setPixmap(whitewalkers.scaled(100, 100, Qt::KeepAspectRatio));
     ui->labelWhiteWalkers_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-    ui->labelLegend->setPixmap(crown.scaled(100, 100, Qt::KeepAspectRatio));
+    ui->labelLegend->setText("<html><head/><body><p><b>Legend:<b></p><body></html>");
+
+    ui->labelCrown->setPixmap(crown.scaled(30, 30, Qt::KeepAspectRatio));
+    ui->labelCrown_2->setText("your house");
+
+    ui->labelTic->setPixmap(tic.scaled(25, 25, Qt::KeepAspectRatio));
+    ui->labelTic_2->setText("enemies you can attack");
+
+    ui->labelCross->setPixmap(cross.scaled(25, 25, Qt::KeepAspectRatio));
+    ui->labelCross_2->setText("enemies you can't attack");
 
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
@@ -113,16 +122,16 @@ void PlayWindow::paintEvent(QPaintEvent *)
 
     if(invaderRow != -1){
         if(vectHouses[0] == mappa.readTerritory(invaderRow, invaderColumn).getArmy()->getName()[0]){
-            painter.drawPixmap(invaderColumn * w, invaderRow * h, w, h, crown);
+            painter.drawPixmap(invaderColumn * w + w*107/500, invaderRow * h, w*286/500, h*176/500, crown);
             for(int i = invaderRow - 1; i < invaderRow + 2; i++){
                 for(int j = invaderColumn - 1; j < invaderColumn + 2; j++){
                     if(i >= 0 && i < mappa.getNumRows() && j >= 0 && j < mappa.getNumColumns() &&
                             mappa.readTerritory(i, j).isEarth() && vectHouses[0] != mappa.readTerritory(i, j).getArmy()->getName()[0])
-                        painter.drawPixmap(j * w, i * h, w, h, tic);
+                        painter.drawPixmap(j * w, i * h, w * 2/5, h * 2/5, tic);
                 }
             }
         } else {
-            painter.drawPixmap(invaderColumn * w, invaderRow * h, w, h, cross);
+            painter.drawPixmap(invaderColumn * w, invaderRow * h, w * 2/5, h * 2/5, cross);
 
         }
     }
@@ -170,6 +179,7 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
     ui->labelName->setText("<html><head/><body><b>" + QString::fromStdString(territory.getArmy()->getName()) + "</b></body></html>");
     ui->labelSimple->setText("<html><head/><body><p>Simple Troops: " + QString::number(territory.getArmy()->getNumSimpleTroops()) + "</p></body></html> ");
     ui->labelMagic->setText("<html><head/><body><p>Magic Troops: " + QString::number(territory.getArmy()->getNumMagicTroops()) + "</p></body></html> ");
+
     float strength;
     if(territory.getArmy()->getName()[0] == vectHouses[0])
         strength = mappa.calculateStrength(i, j, true);
@@ -352,4 +362,7 @@ void PlayWindow::refreshLabels()
     mappa.countTroops("WhiteWalkers", numMagic, numSimple);
     ui->labelWhiteWalkers->setText("<html><head/><body><p><b>WhiteWalkers:<b></p><p>Simple " +
                                 QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");
+
+
+
 }
