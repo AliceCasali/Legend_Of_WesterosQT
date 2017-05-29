@@ -283,6 +283,7 @@ void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
     }
 }
 
+//funzione che serve per controllare i nemici
 bool Map::hasEnemies(int row, int column){
     for(int i = row - 1; i <= row + 1; i++){
         for(int j = column - 1; j <= column + 1; j++){

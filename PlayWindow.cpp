@@ -222,13 +222,14 @@ void PlayWindow::on_attacca_clicked()
     bool esito;
     QString opponentName = QString::fromStdString(mappa.readTerritory(defenderRow, defenderColumn).getArmy()->getName());
     mappa.conquer(invaderRow, invaderColumn, defenderRow, defenderColumn, esito);
-    QString resoconto("Hai ");
+    QString resoconto("You ");
     if(esito)
-        resoconto += "vinto ";
+        resoconto += "have won ";
     else
-        resoconto += "perso ";
-    resoconto += QString("contro le truppe " + opponentName + ".");
+        resoconto += "lost ";
+    resoconto += QString("against the troops " + opponentName + ".");
 
+    //inserisco in un vettore gli eserciti ancora presenti tra i nemici
     for(int k = 1; k < vectHouses.size(); k++){
         vector<QPoint> invaderEnemyArmies;
         for(int i = 0; i < mappa.getNumRows(); i++){
@@ -244,10 +245,12 @@ void PlayWindow::on_attacca_clicked()
             continue;
         }
 
+        //inizializzo i turni random dei nemici
         int randomInvader;
         randomInvader = rand() % invaderEnemyArmies.size();
         QPoint pi = invaderEnemyArmies[randomInvader];
 
+        //funzione che raccoglie in un vettore le truppe confinanti dell'invader (pc)
         vector<QPoint> defenderEnemyArmies;
         for(int i = pi.y() - 1; i <= pi.y() + 1; i++){
             for(int j = pi.x() - 1; j <= pi.x() + 1; j++){
@@ -257,17 +260,19 @@ void PlayWindow::on_attacca_clicked()
                 }
             }
         }
+
+        //controllo fine turni
         int randomDefender;
         randomDefender = rand() % defenderEnemyArmies.size();
         QPoint pd = defenderEnemyArmies[randomDefender];
         opponentName = QString::fromStdString(mappa.readTerritory(pi.y(), pi.x()).getArmy()->getName());
         mappa.conquer(pi.y(), pi.x(), pd.y(), pd.x(), esito);
         if(mappa.readTerritory(pd.y(), pd.x()).getArmy()->getName()[0] == vectHouses[0]){
-            resoconto += QString("\nSei stato attaccatto dalle truppe " + opponentName + " e hai ");
+            resoconto += QString("\nYou were attacked from the troops of " + opponentName + " and you ");
             if(!esito)
-                resoconto += "vinto.";
+                resoconto += "have won.";
             else
-                resoconto += "perso.";
+                resoconto += "lost.";
         }
 
     }
@@ -295,14 +300,14 @@ void PlayWindow::on_attacca_clicked()
     }
 
     QMessageBox msgBox;
-    msgBox.setWindowTitle("Fine dei giochi");
+    msgBox.setWindowTitle("Game is Over");
 
     if(!enemyAlive){
         //Il giocatore ha vinto
         msgBox.setStandardButtons(QMessageBox::Yes);
         msgBox.addButton(QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
-        msgBox.setText("Hai vinto! Vuoi iniziare una nuova partita?");
+        msgBox.setText("You win! Do you want to restart a new battle?");
         if(msgBox.exec() == QMessageBox::Yes){
             ChooseWindow addView;
             close();
@@ -316,7 +321,7 @@ void PlayWindow::on_attacca_clicked()
         msgBox.setStandardButtons(QMessageBox::Yes);
         msgBox.addButton(QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);
-        msgBox.setText("Hai perso! Vuoi iniziare una nuova partita?");
+        msgBox.setText("You lost! Do you want to restart a new battle?");
         if(msgBox.exec() == QMessageBox::Yes){
             ChooseWindow addView;
             close();
@@ -328,7 +333,7 @@ void PlayWindow::on_attacca_clicked()
     }
 
     //resoconto attacchi
-    msgBox.setWindowTitle("Resoconto turni");
+    msgBox.setWindowTitle("Turns report");
     msgBox.addButton(QMessageBox::Ok);
     msgBox.setText(resoconto);
     msgBox.exec();
