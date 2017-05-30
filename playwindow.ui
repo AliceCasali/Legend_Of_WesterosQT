@@ -106,6 +106,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
 	margin-right: 20 px;
@@ -127,6 +132,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
 	margin-right: 20 px;
@@ -147,6 +157,11 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
        </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
@@ -172,6 +187,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
 	margin-right: 20 px;
@@ -193,6 +213,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
 	margin-right: 20 px;
@@ -213,6 +238,11 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
        </property>
        <property name="styleSheet">
         <string notr="true">QLabel{
@@ -249,6 +279,11 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="labelName">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -259,6 +294,11 @@
      </item>
      <item>
       <widget class="QLabel" name="labelSimple">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -269,6 +309,11 @@
      </item>
      <item>
       <widget class="QLabel" name="labelMagic">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -279,6 +324,11 @@
      </item>
      <item>
       <widget class="QLabel" name="labelPower">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -302,6 +352,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>Attack</string>
        </property>
@@ -318,6 +373,11 @@
       <layout class="QGridLayout" name="gridLayout">
        <item row="3" column="1" alignment="Qt::AlignVCenter">
         <widget class="QLabel" name="labelTic_2">
+         <property name="font">
+          <font>
+           <family>Game of Thrones</family>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -338,6 +398,11 @@
        </item>
        <item row="2" column="1">
         <widget class="QLabel" name="labelCrown_2">
+         <property name="font">
+          <font>
+           <family>Game of Thrones</family>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -358,6 +423,11 @@
        </item>
        <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="labelLegend">
+         <property name="font">
+          <font>
+           <family>Game of Thrones</family>
+          </font>
+         </property>
          <property name="text">
           <string>Legend</string>
          </property>
@@ -381,6 +451,11 @@
        </item>
        <item row="4" column="1" alignment="Qt::AlignVCenter">
         <widget class="QLabel" name="labelCross_2">
+         <property name="font">
+          <font>
+           <family>Game of Thrones</family>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>

@@ -36,11 +36,11 @@
      </property>
      <property name="font">
       <font>
-       <family>URW Chancery L</family>
-       <pointsize>40</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
+       <family>Game of Thrones</family>
+       <pointsize>28</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -52,6 +52,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="btnBaratheon">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>Baratheon</string>
        </property>
@@ -79,6 +84,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="btnGreyjoy">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>Greyjoy</string>
        </property>
@@ -103,6 +113,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QPushButton" name="btnLannister">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>Lannister</string>
        </property>
@@ -127,6 +142,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QPushButton" name="btnStark">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -154,6 +174,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
       <widget class="QPushButton" name="btnTargaryen">
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>Targaryen</string>
        </property>
@@ -184,6 +209,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Game of Thrones</family>
+        </font>
+       </property>
        <property name="text">
         <string>WhiteWalkers</string>
        </property>
@@ -211,6 +241,11 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Game of Thrones</family>
+      </font>
      </property>
      <property name="text">
       <string>Back</string>

@@ -218,13 +218,14 @@ void PlayWindow::setHouse(string nameHouse)
 
 void PlayWindow::on_attacca_clicked()
 {
+    ui->attacca->setEnabled(false);
     mappa.show();
     bool esito;
     QString opponentName = QString::fromStdString(mappa.readTerritory(defenderRow, defenderColumn).getArmy()->getName());
     mappa.conquer(invaderRow, invaderColumn, defenderRow, defenderColumn, esito);
     QString resoconto("You ");
     if(esito)
-        resoconto += "have won ";
+        resoconto += "won ";
     else
         resoconto += "lost ";
     resoconto += QString("against the troops " + opponentName + ".");
@@ -268,9 +269,9 @@ void PlayWindow::on_attacca_clicked()
         opponentName = QString::fromStdString(mappa.readTerritory(pi.y(), pi.x()).getArmy()->getName());
         mappa.conquer(pi.y(), pi.x(), pd.y(), pd.x(), esito);
         if(mappa.readTerritory(pd.y(), pd.x()).getArmy()->getName()[0] == vectHouses[0]){
-            resoconto += QString("\nYou were attacked from the troops of " + opponentName + " and you ");
+            resoconto += QString("\nYou have been attacked from the troops of " + opponentName + " and you ");
             if(!esito)
-                resoconto += "have won.";
+                resoconto += "won.";
             else
                 resoconto += "lost.";
         }

@@ -43,10 +43,11 @@
       </property>
       <property name="font">
        <font>
+        <family>Game of Thrones</family>
         <pointsize>45</pointsize>
-        <weight>75</weight>
-        <italic>true</italic>
-        <bold>true</bold>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -65,6 +66,11 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <family>Game of Thrones</family>
+       </font>
+      </property>
       <property name="text">
        <string>PLAY</string>
       </property>
@@ -72,6 +78,11 @@
     </item>
     <item alignment="Qt::AlignHCenter">
      <widget class="QPushButton" name="quit">
+      <property name="font">
+       <font>
+        <family>Game of Thrones</family>
+       </font>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
