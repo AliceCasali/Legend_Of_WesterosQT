@@ -19,5 +19,4 @@ public:
 
 };
 
-
 #endif //LEGENDS_OF_WESTEROS_BARATHEON_H

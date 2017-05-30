@@ -5,6 +5,7 @@
 #include "Targaryen.h"
 #include "Territory.h"
 #include "ConcreteArmyFactory.h"
+#include "mainwindow.h"
 
 ChooseWindow::ChooseWindow(QWidget *parent) :
     QDialog(parent),
@@ -33,6 +34,13 @@ ChooseWindow::ChooseWindow(QWidget *parent) :
     ui->labWhiteWalkers->setPixmap(whitewalkers.scaled(100, 100, Qt::KeepAspectRatio));
     ui->labWhiteWalkers->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
+    //per far ripeter la musica
+    if(music == nullptr)
+    {
+        music = new QMediaPlayer();
+        music->setMedia(QUrl("qrc:/sounds/gotmusic.mp3"));
+        music->play();
+    }
 }
 
 ChooseWindow::~ChooseWindow()
@@ -40,10 +48,11 @@ ChooseWindow::~ChooseWindow()
 
 }
 
-//bottone back
-void ChooseWindow::on_back_clicked()
+//bottone exit
+void ChooseWindow::on_exit_clicked()
 {
     close();
+
 }
 
 //bottone Targaryen
@@ -62,6 +71,12 @@ void ChooseWindow::on_btnStark_clicked()
 void ChooseWindow::on_btnGreyjoy_clicked()
 {
     startGame("Greyjoy");
+}
+
+//musica
+void ChooseWindow::setMusic(QMediaPlayer *music)
+{
+    this->music = music;
 }
 
 //bottone Lannister
@@ -85,12 +100,12 @@ void ChooseWindow::on_btnBaratheon_clicked()
 //per passare dalla schermata choosewindow alla playwindow
 void ChooseWindow::startGame(string nameHouse)
 {
+    music->stop();
     PlayWindow addView;
     addView.setHouse(nameHouse);
     close();
     addView.exec();
 }
-
 
 void ChooseWindow::paintEvent(QPaintEvent *)
 {

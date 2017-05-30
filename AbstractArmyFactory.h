@@ -17,5 +17,4 @@ public:
 
 };
 
-
 #endif //LEGENDS_OF_WESTEROS_ABSTRACTARMYFACTORY_H

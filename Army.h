@@ -11,7 +11,6 @@
 
 using namespace std;
 
-
 enum class Strategy {onlyMagic, onlySimple, lessDefense};
 
 class Army {
@@ -41,7 +40,5 @@ protected:
     Troop* simpleTroop;
 
 };
-
-
 
 #endif //LEGENDS_OF_WESTEROS_ARMYFACTORY_H

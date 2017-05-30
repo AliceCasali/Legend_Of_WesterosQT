@@ -235,7 +235,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="back">
+    <widget class="QPushButton" name="exit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -248,7 +248,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Back</string>
+      <string>exit</string>
      </property>
     </widget>
    </item>

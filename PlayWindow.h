@@ -11,6 +11,8 @@
 #include "WhiteWalkers.h"
 #include "Map.h"
 
+#include <QMediaPlayer>
+
 namespace Ui {
 class PlayWindow;
 }
@@ -53,6 +55,7 @@ private:
     int invaderColumn;
     int defenderRow;
     int defenderColumn;
+    QMediaPlayer *music;
 };
 
 

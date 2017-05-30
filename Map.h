@@ -6,6 +6,7 @@
 #define LEGENDS_OF_WESTEROS_MAP_H
 
 #include <vector>
+#include <QMediaPlayer>
 
 #include "Territory.h"
 #define numRows 10
@@ -48,8 +49,7 @@ private:
 
     float calculateStrengthRecursive(int initialRow, int initialColumn, bool isInvader, vector<vector<bool>> &calculatedMat);
     float controlledCall(int row, int col, bool isInvader, string armyName, vector<vector<bool>> &calculatedMat);
+    QMediaPlayer *music;
 };
-
-
 
 #endif //LEGENDS_OF_WESTEROS_MAP_H

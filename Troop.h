@@ -5,7 +5,6 @@
 #ifndef LEGENDS_OF_WESTEROS_SIMPLETROOP_H
 #define LEGENDS_OF_WESTEROS_SIMPLETROOP_H
 
-
 class Troop{
 public:
     Troop(float strenght) : strenght(strenght){ }
@@ -17,6 +16,5 @@ public:
 protected:
     float strenght;
 };
-
 
 #endif //LEGENDS_OF_WESTEROS_SIMPLETROOP_H

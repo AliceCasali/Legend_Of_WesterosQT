@@ -5,9 +5,11 @@
 #include <iostream>
 #include <math.h>
 
+#include "mainwindow.h"
 #include "PlayWindow.h"
-#include "ui_playwindow.h"
 #include "ChooseWindow.h"
+#include "ui_playwindow.h"
+#include "ui_mainwindow.h"
 #include "ui_choosewindow.h"
 
 PlayWindow::PlayWindow(QWidget *parent) :
@@ -17,6 +19,10 @@ PlayWindow::PlayWindow(QWidget *parent) :
     invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
 {
     ui->setupUi(this);
+
+    music = new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sounds/gotmusic1.mp3"));
+    music->play();
 
     //posizione stemmi delle casate nelle relative label
     ui->labelStark_2->setPixmap(stark.scaled(100, 100, Qt::KeepAspectRatio));
@@ -82,6 +88,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
 PlayWindow::~PlayWindow()
 {
     delete ui;
+    delete music;
 }
 
 //evento che disegna le immagini a video
@@ -175,6 +182,7 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
     int j = p.x()/w;
     Territory territory = mappa.readTerritory(i, j);
 
+    //aggiorno cordinate invasore: quando clicco la prima volta, oppure clicco un altro dei miei oppure clicco lontano, oppure clicco vicino ma quello su cui avevo cliccato prima non era mio
     if(!territory.isEarth())
         return;
     if(invaderRow == -1 || vectHouses[0] == territory.getArmy()->getName()[0] ||
@@ -212,7 +220,7 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
     ui->labelPower->setText("<html><head/><body><p>Army Power: " + QString::number(strength) + "</p></body></html> ");
 }
 
-//inserisce le casate nel vettore
+//metto in prima posizione la mia casata
 void PlayWindow::setHouse(string nameHouse)
 {
     for(int i = 0; i<vectHouses.size(); i++){
@@ -240,7 +248,7 @@ void PlayWindow::on_attacca_clicked()
         resoconto += "lost ";
     resoconto += QString("against the troops " + opponentName + ".");
 
-    //inserisco in un vettore gli eserciti ancora presenti tra i nemici
+    //inserisco in un vettore gli eserciti del nemico k-esimo che possono eseguire un attacco
     for(int k = 1; k < vectHouses.size(); k++){
         vector<QPoint> invaderEnemyArmies;
         for(int i = 0; i < mappa.getNumRows(); i++){
@@ -256,12 +264,12 @@ void PlayWindow::on_attacca_clicked()
             continue;
         }
 
-        //inizializzo i turni random dei nemici
+        //tra gli eserciti validi del nemico k-esimo ne scelgo uno a caso
         int randomInvader;
         randomInvader = rand() % invaderEnemyArmies.size();
         QPoint pi = invaderEnemyArmies[randomInvader];
 
-        //funzione che raccoglie in un vettore le truppe confinanti dell'invader (pc)
+        //raccolgo in un vettore le truppe attaccabili dall'invader (pc)
         vector<QPoint> defenderEnemyArmies;
         for(int i = pi.y() - 1; i <= pi.y() + 1; i++){
             for(int j = pi.x() - 1; j <= pi.x() + 1; j++){
@@ -272,13 +280,15 @@ void PlayWindow::on_attacca_clicked()
             }
         }
 
-        //controllo fine turni
+        //tra le truppe attaccabili ne scelgo uno a caso
         int randomDefender;
         randomDefender = rand() % defenderEnemyArmies.size();
         QPoint pd = defenderEnemyArmies[randomDefender];
+
         opponentName = QString::fromStdString(mappa.readTerritory(pi.y(), pi.x()).getArmy()->getName());
+        char defenderInitial = mappa.readTerritory(pd.y(), pd.x()).getArmy()->getName()[0];
         mappa.conquer(pi.y(), pi.x(), pd.y(), pd.x(), esito);
-        if(mappa.readTerritory(pd.y(), pd.x()).getArmy()->getName()[0] == vectHouses[0]){
+        if(defenderInitial == vectHouses[0]){
             resoconto += QString("\nYou have been attacked from the troops of " + opponentName + " and you ");
             if(!esito)
                 resoconto += "won.";

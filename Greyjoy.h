@@ -5,7 +5,6 @@
 #ifndef LEGENDS_OF_WESTEROS_GREYJOY_H
 #define LEGENDS_OF_WESTEROS_GREYJOY_H
 
-
 #include "Army.h"
 #include "Troop.h"
 
@@ -18,6 +17,5 @@ public:
     static Strategy strategy;
 
 };
-
 
 #endif //LEGENDS_OF_WESTEROS_GREYJOY_H

@@ -5,7 +5,6 @@
 #ifndef LEGENDS_OF_WESTEROS_TERRITORY_H
 #define LEGENDS_OF_WESTEROS_TERRITORY_H
 
-
 #include "Army.h"
 
 class Territory {
@@ -35,6 +34,5 @@ private:
 
 
 };
-
 
 #endif //LEGENDS_OF_WESTEROS_TERRITORY_H

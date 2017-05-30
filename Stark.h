@@ -18,5 +18,4 @@ public:
 
 };
 
-
 #endif //LEGENDS_OF_WESTEROS_STARK_H

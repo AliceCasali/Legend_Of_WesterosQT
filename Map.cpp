@@ -210,7 +210,7 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
 float Map::calculateStrength(int initialRow, int initialColumn, bool isInvader) {
     //crea e inizializza una matrice temporanea per vedere se ho già contato un territorio
     //bool calculatedMat[rows][columns];
-    //??
+    //per non specificare le dimensioni della matrice si usa il vector di vector
     vector<vector<bool>> calculatedMat;
     for (int i = 0; i < rows; i++)
     {
@@ -292,7 +292,7 @@ float Map::controlledCall(int row, int col, bool isInvader, string armyName, vec
         return calculateStrengthRecursive(row, col, isInvader, calculatedMat);
 }
 
-//funzione che conta il numero totale di truppe (semplici e magiche) confinanti
+//funzione che conta il numero totale di truppe (semplici e magiche) di ogni casata
 void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
     numMagic = 0;
     numSimple = 0;

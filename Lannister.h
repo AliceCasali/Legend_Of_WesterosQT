@@ -8,7 +8,6 @@
 #include "Troop.h"
 #include "Army.h"
 
-
 class Lannister : public Army{
 public:
     Lannister(int numMagic,int numSimple, float magicStrength, float simpleStrength);
@@ -18,6 +17,5 @@ public:
     static Strategy strategy;
 
 };
-
 
 #endif //LEGENDS_OF_WESTEROS_LANNISTER_H

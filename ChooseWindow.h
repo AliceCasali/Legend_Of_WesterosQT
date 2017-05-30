@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <string>
+#include <QMediaPlayer>
 
 using namespace std;
 
@@ -18,9 +19,10 @@ public:
     explicit ChooseWindow(QWidget *parent = 0);
     ~ChooseWindow();
     void paintEvent(QPaintEvent *) override;
+    void setMusic(QMediaPlayer *music);
 
 private slots:
-    void on_back_clicked();
+    void on_exit_clicked();
 
     void on_btnTargaryen_clicked();
 
@@ -34,6 +36,7 @@ private slots:
 
     void on_btnGreyjoy_clicked();
 
+
 private:
     void startGame(string nameHouse);
 
@@ -45,6 +48,8 @@ private:
     QPixmap stark;
     QPixmap targaryen;
     QPixmap whitewalkers;
+
+    QMediaPlayer *music;
 };
 
 #endif // CHOOSEWINDOW_H

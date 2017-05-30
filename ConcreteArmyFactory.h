@@ -10,8 +10,6 @@
 #include "AbstractArmyFactory.h"
 #include "Lannister.h"
 
-
-
 class ConcreteArmyFactory : public AbstractArmyFactory {
 public:
     ConcreteArmyFactory(house namehouse) : namehouse(namehouse){}
@@ -22,6 +20,5 @@ public:
 private:
     house namehouse;
 };
-
 
 #endif //LEGENDS_OF_WESTEROS_CONCRETEARMYFACTORY_H

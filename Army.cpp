@@ -5,7 +5,6 @@
 #include "Map.h"
 #include "Army.h"
 
-
 Army::~Army()
 {
     delete simpleTroop;
