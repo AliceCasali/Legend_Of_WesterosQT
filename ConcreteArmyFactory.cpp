@@ -9,7 +9,7 @@
 #include "WhiteWalkers.h"
 #include "Baratheon.h"
 
-
+//costruttore a cui passiamo strenght e magic
 Army *ConcreteArmyFactory::createArmy(int strength, int magic) {
     switch(namehouse) {
         case house::Lannister:
@@ -28,6 +28,7 @@ Army *ConcreteArmyFactory::createArmy(int strength, int magic) {
     return nullptr;
 }
 
+//costruttore di default
 Army *ConcreteArmyFactory::createArmy() {
     switch(namehouse) {
         case house::Lannister:
@@ -46,6 +47,7 @@ Army *ConcreteArmyFactory::createArmy() {
     return nullptr;
 }
 
+//serve per poter utilizzare la prima lettera di ogni casata invece che il nome
 ConcreteArmyFactory::ConcreteArmyFactory(string name)
 {
     switch(name[0]) {

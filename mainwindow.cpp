@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow), mainbkgnd("img/main.jpg")
 {
     ui->setupUi(this);
+    //aggiunta musica nella mainwindow che continua anche nelle altre finestre
     /*QMediaPlayer *music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/sounds/gotmusic.mp3"));
     music->play();*/
@@ -29,6 +30,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//bottone play
 void MainWindow::on_play_clicked() //per passare da schermatamain a schermatachoose
 {
     ChooseWindow addView;
@@ -36,6 +38,7 @@ void MainWindow::on_play_clicked() //per passare da schermatamain a schermatacho
     addView.exec();
 }
 
+//bottone quit
 void MainWindow::on_quit_clicked()
 {
    close();

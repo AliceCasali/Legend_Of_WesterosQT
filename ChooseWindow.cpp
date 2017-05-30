@@ -14,6 +14,7 @@ ChooseWindow::ChooseWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //posiziono stemmi delle casate nelle rispettive label
     ui->labBaratheon->setPixmap(baratheon.scaled(100, 100, Qt::KeepAspectRatio));
     ui->labBaratheon->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
@@ -39,43 +40,49 @@ ChooseWindow::~ChooseWindow()
 
 }
 
+//bottone back
 void ChooseWindow::on_back_clicked()
 {
     close();
 }
 
+//bottone Targaryen
 void ChooseWindow::on_btnTargaryen_clicked()
 {
     startGame("Targaryen");
 }
 
+//bottone Stark
 void ChooseWindow::on_btnStark_clicked()
 {
     startGame("Stark");
 }
 
-
+//bottone Greyjoy
 void ChooseWindow::on_btnGreyjoy_clicked()
 {
     startGame("Greyjoy");
 }
 
+//bottone Lannister
 void ChooseWindow::on_btnLannister_clicked()
 {
     startGame("Lannister");
 }
 
+//bottone WhiteWalkers
 void ChooseWindow::on_btnWhiteWalkers_clicked()
 {ui->labBaratheon->setPixmap(baratheon.scaled(100, 100, Qt::KeepAspectRatio));
     startGame("WhiteWalkers");
 }
 
+//bottone Baratheon
 void ChooseWindow::on_btnBaratheon_clicked()
 {
     startGame("Baratheon");
 }
 
-
+//per passare dalla schermata choosewindow alla playwindow
 void ChooseWindow::startGame(string nameHouse)
 {
     PlayWindow addView;

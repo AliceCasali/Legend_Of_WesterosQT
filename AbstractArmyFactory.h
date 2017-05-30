@@ -8,11 +8,11 @@
 #include "Army.h"
 #include "Troop.h"
 
-enum class house {Lannister, Stark, Greyjoy, Targaryen, WhiteWalkers, Baratheon};
+enum class house {Lannister, Stark, Greyjoy, Targaryen, WhiteWalkers, Baratheon}; //enumerazione casate
 
 class AbstractArmyFactory {
 public:
-    virtual Army* createArmy(int typeSimple, int typeMagic) = 0;
+    virtual Army* createArmy(int typeSimple, int typeMagic) = 0; //metodi virtuali
     virtual Army* createArmy() = 0;
 
 };

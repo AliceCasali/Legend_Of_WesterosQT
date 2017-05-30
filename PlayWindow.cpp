@@ -17,6 +17,8 @@ PlayWindow::PlayWindow(QWidget *parent) :
     invaderRow(-1), invaderColumn(-1), defenderRow(-1), defenderColumn(-1)
 {
     ui->setupUi(this);
+
+    //posizione stemmi delle casate nelle relative label
     ui->labelStark_2->setPixmap(stark.scaled(100, 100, Qt::KeepAspectRatio));
     ui->labelStark_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
@@ -35,6 +37,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
     ui->labelWhiteWalkers_2->setPixmap(whitewalkers.scaled(100, 100, Qt::KeepAspectRatio));
     ui->labelWhiteWalkers_2->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
+    //posiziono le immagini e il testo della legenda
     ui->labelLegend->setText("<html><head/><body><p><b>Legend:<b></p><body></html>");
 
     ui->labelCrown->setPixmap(crown.scaled(30, 30, Qt::KeepAspectRatio));
@@ -49,6 +52,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
 
     srand(time(NULL)); //da chiamare una volta quando tirerò a caso i numeri con la rand
                            //serve con la rand, la chiamo una volta sola nel main
+
     //assegno una strategy casuale ad ogni casata
     Baratheon::strategy = Army::randomStrategy();
     Greyjoy::strategy = Army::randomStrategy();
@@ -57,6 +61,7 @@ PlayWindow::PlayWindow(QWidget *parent) :
     Targaryen::strategy = Army::randomStrategy();
     WhiteWalkers::strategy = Army::randomStrategy();
 
+    //vettore di char che serve per distinguere i turni
     vectHouses.push_back('B');
     vectHouses.push_back('G');
     vectHouses.push_back('L');
@@ -64,11 +69,12 @@ PlayWindow::PlayWindow(QWidget *parent) :
     vectHouses.push_back('T');
     vectHouses.push_back('W');
 
+    //aggiornamento labels ad ogni click
     refreshLabels();
 
+    //disattivo bottone attacca
     ui->attacca->setEnabled(false);
 
-    //ui->bac
 }
 
 
@@ -78,19 +84,24 @@ PlayWindow::~PlayWindow()
     delete ui;
 }
 
+//evento che disegna le immagini a video
 void PlayWindow::paintEvent(QPaintEvent *)
 {
+    //per disegnare l'immagine della mappa
     bkgnd = bkgnd.scaled(this->ui->vistaMappa->size());
-    // andrà modificato per togliere l'errore
     QPainter painter(&bkgnd);
     painter.drawPixmap(0, 0, ui->vistaMappa->width(), ui->vistaMappa->height(), westeros);
 
+    //per disegnare gli stemmi
     QPixmap *stemma;
+    //width ed height sono la lunghezza e altezza della mappa e non dell'intera finestra playwindow
     int w, h;
     w = ui->vistaMappa->width()/mappa.getNumColumns();
     h = ui->vistaMappa->height()/mappa.getNumRows();
+    //scorro la matrice della mappa
     for(int i = 0; i<mappa.getNumRows(); i++){
         for(int j = 0; j<mappa.getNumColumns(); j++){
+            //si controlla se il territorio non è acqua ed è mio assegnandogli il relativo stemma
             Territory territory = mappa.readTerritory(i, j);
             if(!territory.isEarth())
                 continue;
@@ -120,9 +131,14 @@ void PlayWindow::paintEvent(QPaintEvent *)
         }
     }
 
+    //per disegnare cross, tic e crown sulla mappa
+    //controllo se siamo dentro la matrice
     if(invaderRow != -1){
+        //controllo per vedere se è il giocatore: si disegna la crown
         if(vectHouses[0] == mappa.readTerritory(invaderRow, invaderColumn).getArmy()->getName()[0]){
+            //adatto le misure dell'immagine
             painter.drawPixmap(invaderColumn * w + w*107/500, invaderRow * h, w*286/500, h*176/500, crown);
+            //controllo per vedere i territori confinanti alleati del giocatore: si disegna il tic
             for(int i = invaderRow - 1; i < invaderRow + 2; i++){
                 for(int j = invaderColumn - 1; j < invaderColumn + 2; j++){
                     if(i >= 0 && i < mappa.getNumRows() && j >= 0 && j < mappa.getNumColumns() &&
@@ -130,26 +146,31 @@ void PlayWindow::paintEvent(QPaintEvent *)
                         painter.drawPixmap(j * w, i * h, w * 2/5, h * 2/5, tic);
                 }
             }
+          //se non è confinante e non è il giocatore: disegno la cross
         } else {
             painter.drawPixmap(invaderColumn * w, invaderRow * h, w * 2/5, h * 2/5, cross);
 
         }
     }
-
+    //mantiene a video lo sfondo
     ui->vistaMappa->setPixmap(bkgnd);
 }
 
+
+//evento click mouse
 void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
 {
     QPoint p = eventPress->pos();
     QPoint topleft = ui->vistaMappa->pos();
     p = p - topleft;
-    cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
+    //cout << "Mouse pressed: x = " << p.x() << ", y = " << p.y() << endl;
+    //rendo valido il click all'interno della mappa
     if(p.x() < 0 || p.x() >= ui->vistaMappa->width() || p.y() < 0 || p.y() >= ui->vistaMappa->height())
         return;
     int w, h;
     w = ui->vistaMappa->width()/mappa.getNumColumns();
     h = ui->vistaMappa->height()/mappa.getNumRows();
+    //inizializzo le cordinate adatte alla mappa
     int i = p.y()/h;
     int j = p.x()/w;
     Territory territory = mappa.readTerritory(i, j);
@@ -164,22 +185,24 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
         defenderRow = -1;
         defenderColumn = -1;
         ui->attacca->setEnabled(false);
-        // eventualmente mostro qualcosa graficamente
-        cout << "Riga invasore: " << invaderRow << ", Colonna invasore: " << invaderColumn << endl;
+
+        //cout << "Riga invasore: " << invaderRow << ", Colonna invasore: " << invaderColumn << endl;
     }
 
     else {
         defenderRow = i;
         defenderColumn = j;
         ui->attacca->setEnabled(true);
-        // eventualmente mostro qualcosa graficamente
-        cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
+
+        //cout << "Riga difensore: " << defenderRow << ", Colonna difensore: " << defenderColumn << endl;
     }
 
+    //per mettere il testo nelle labels: informazione del numero delle truppe semplici e magiche
     ui->labelName->setText("<html><head/><body><b>" + QString::fromStdString(territory.getArmy()->getName()) + "</b></body></html>");
     ui->labelSimple->setText("<html><head/><body><p>Simple Troops: " + QString::number(territory.getArmy()->getNumSimpleTroops()) + "</p></body></html> ");
     ui->labelMagic->setText("<html><head/><body><p>Magic Troops: " + QString::number(territory.getArmy()->getNumMagicTroops()) + "</p></body></html> ");
 
+    //si calcola la forza delle truppe per metterla come testo nelle labels
     float strength;
     if(territory.getArmy()->getName()[0] == vectHouses[0])
         strength = mappa.calculateStrength(i, j, true);
@@ -189,6 +212,7 @@ void PlayWindow::mousePressEvent(QMouseEvent *eventPress)
     ui->labelPower->setText("<html><head/><body><p>Army Power: " + QString::number(strength) + "</p></body></html> ");
 }
 
+//inserisce le casate nel vettore
 void PlayWindow::setHouse(string nameHouse)
 {
     for(int i = 0; i<vectHouses.size(); i++){
@@ -200,24 +224,10 @@ void PlayWindow::setHouse(string nameHouse)
     }
 }
 
-/*ostream& operator<<(ostream &o, Strategy s) //traduzione da strategy a stringa per fare cout
-{
-    switch(s)
-    {
-        case Strategy::onlyMagic:
-            return o << "onlyMagic";
-        case Strategy::onlySimple:
-            return o << "onlySimple";
-        case Strategy::lessDefense:
-            return o << "lessDefense";
-        default:
-            return o << "valore non valido";
-    }
-}*/
-
-
+//bottone attacca
 void PlayWindow::on_attacca_clicked()
 {
+    //inizialmente il bottone è disattivato, viene attivato appena si cliacca un territorio confinante nemico
     ui->attacca->setEnabled(false);
     mappa.show();
     bool esito;
@@ -277,6 +287,8 @@ void PlayWindow::on_attacca_clicked()
         }
 
     }
+    //dopo l'attacco, riporto le cordinate a -1 per passare al prossimo attacco
+    //e riaggiorno le labels dopo l'attacco
     refreshLabels();
     invaderRow = -1;
     invaderColumn = -1;
@@ -300,6 +312,7 @@ void PlayWindow::on_attacca_clicked()
         }
     }
 
+    //finestra che si apre si finsce il gioco
     QMessageBox msgBox;
     msgBox.setWindowTitle("Game is Over");
 
@@ -345,6 +358,7 @@ void PlayWindow::refreshLabels()
     int numMagic;
     int numSimple;
 
+    //per aggiugere le informazioni di testo quando si clicca su una cella di territorio
     mappa.countTroops("Baratheon", numMagic, numSimple);
     ui->labelBaratheon->setText("<html><head/><body><p><b>Baratheon:<b></p><p>Simple " +
                                 QString::number(numSimple) + ", Magic " + QString::number(numMagic) + "</p></body></html> ");

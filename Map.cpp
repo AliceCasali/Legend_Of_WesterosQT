@@ -32,7 +32,7 @@ Map::Map() : rows(numRows), columns(numCols) {
                                   {0, 0, 2, 3, 5, 0}
     };
 
-    // TODO: usare factory per creare gli elementi della mappa?
+    //si scorre la matrice per creare tutti gli eserciti con le rispettive caratteristiche
     int i;
     for (i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
@@ -64,6 +64,7 @@ Map::Map() : rows(numRows), columns(numCols) {
     }
 }
 
+//funzione per leggere il territorio all'interno della cella
 Territory Map::readTerritory(int r, int c) {
     //try{
     if (r >= 0 && r < rows && c >= 0 && c < columns)
@@ -74,6 +75,7 @@ Territory Map::readTerritory(int r, int c) {
 
 }
 
+//funzione per scrivere sul territorio all'interno della cella
 void Map::writeTerritory(int r, int c, Territory val) {
     //try  {
     if (r >= 0 && r < rows && c >= 0 && c < columns)
@@ -84,6 +86,7 @@ void Map::writeTerritory(int r, int c, Territory val) {
 
 }
 
+//funzione per vedere la mappa a video sulla matrice (prima della grafica)
 void Map::show() {
     string s0;
     for (int i = 0; i < rows; i++) {
@@ -118,16 +121,17 @@ void Map::show() {
 
 }
 
-//ritorna true se il combattimento è stato effettuato
+//funzione di conquista del territorio: ritorna true se il combattimento è stato effettuato
+//esito è true se vince l'invader, ed è false se vince il defender
 bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defenderColumn, bool &esito) {
 
-    // controlli su indici
+    // controlli su indici interni alla matrice
     if (!(invaderColumn < columns && invaderColumn >= 0 && invaderRow < rows && invaderRow >= 0))
         return false;
     if (!(defenderColumn < columns && defenderColumn >= 0 && defenderRow < rows && defenderRow >= 0))
         return false;
 
-    // assegno variabili
+    // assegno variabili ad attaccante e difensore
     Army *invader, *defender;
     invader = matrix[invaderRow][invaderColumn].getArmy();
     defender = matrix[defenderRow][defenderColumn].getArmy();
@@ -147,20 +151,24 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
     if (result < invaderStrength) {
         //vince invader
         esito = true;
-        cout << "ha vinto l'invasore: " << matrix[invaderRow][invaderColumn].getArmy()->getName() << endl;
+
+        //cout << "ha vinto l'invasore: " << matrix[invaderRow][invaderColumn].getArmy()->getName() << endl;
+
+        //il defender perde il 30% delle truppe magiche e semplici
         numSimTroops = defender->getNumSimpleTroops() * 70 / 100;
         numMagTroops = defender->getNumMagicTroops() * 70 / 100;
 
         if ((numMagTroops + numSimTroops) <= 2) {
-            //è sconfitto, si riassegna il territorio
-            cout << "lìinvasore che ha conquistato il territorio è: " << matrix[invaderRow][invaderColumn].getArmy()->getName() << endl;
+            //è sconfitto, si riassegna il territorio creando un nuovo esercito dello stesso tipo del vincitore
+
+            //cout << "l'invasore che ha conquistato il territorio è: " << matrix[invaderRow][invaderColumn].getArmy()->getName() << endl;
 
             ConcreteArmyFactory f(invader->getName());
             matrix[defenderRow][defenderColumn] = Territory(f.createArmy());
         }
         else
         {
-            //colpito ma non affondato
+            //difensore colpito ma non sconfitto
             defender->setNumSimpleTroops(numSimTroops);
             defender->setNumMagTroops(numMagTroops);
         }
@@ -168,34 +176,41 @@ bool Map::conquer(int invaderRow, int invaderColumn, int defenderRow, int defend
     else {
         //vince defender
         esito = false;
-        cout << "ha vinto il difensore: " << matrix[defenderRow][defenderColumn].getArmy()->getName() << endl;
+
+        //cout << "ha vinto il difensore: " << matrix[defenderRow][defenderColumn].getArmy()->getName() << endl;
+
+        //vengono tolte all'invader il 30% delle truppe semplici e magici
         numSimTroops = invader->getNumSimpleTroops() * 70 / 100;
         numMagTroops = invader->getNumMagicTroops() * 70 / 100;
 
         if ((numMagTroops + numSimTroops) <= 2) {
             //è sconfitto, si riassegna il territorio
-            cout << "il difensore che ha conquistato il territorio è: " << matrix[defenderRow][defenderColumn].getArmy()->getName() << endl;
+
+            //cout << "il difensore che ha conquistato il territorio è: " << matrix[defenderRow][defenderColumn].getArmy()->getName() << endl;
+
             ConcreteArmyFactory f(defender->getName());
             matrix[invaderRow][invaderColumn] = Territory(f.createArmy());
         }
         else
         {
-            //colpito ma non affondato
+            //invasore colpito ma non sconfitto
             invader->setNumSimpleTroops(numSimTroops);
             invader->setNumMagTroops(numMagTroops);
         }
 
     }
 
-    cout << "truppe semplici modificate perdente:" << numSimTroops << endl;
-    cout << "truppe magiche modificate perdente:" << numMagTroops << endl;
+    //cout << "truppe semplici modificate perdente:" << numSimTroops << endl;
+    //cout << "truppe magiche modificate perdente:" << numMagTroops << endl;
 
     return true;
 }
 
+//funzione che calcola la forza in base ai confinanti alleati, e differenzia la strategy
 float Map::calculateStrength(int initialRow, int initialColumn, bool isInvader) {
     //crea e inizializza una matrice temporanea per vedere se ho già contato un territorio
     //bool calculatedMat[rows][columns];
+    //??
     vector<vector<bool>> calculatedMat;
     for (int i = 0; i < rows; i++)
     {
@@ -223,20 +238,26 @@ float Map::calculateStrengthRecursive(int row, int col, bool isInvader, vector<v
     calculatedMat[row][col] = true;
     Strategy whichStrategy = army->getStrategy();
     switch(whichStrategy){
+        //strategy onlyMagic: l'esercito invasore può usare solo le truppe magiche
         case Strategy::onlyMagic:
             if(isInvader)
                 power = army->getMagicPower();
             else
+                //il difensore usa tutta la potenza
                 power = army->getPower();
             break;
+        //strategy onlySimple: l'esercito invasore può usare solo le truppe semplici
         case Strategy::onlySimple:
             if(isInvader)
                 power = army->getSimplePower();
             else
+                //il difensore usa tutta la potenza
                 power = army->getPower();
             break;
+        //strategy lessDefense: l'esercito difensore utilizza il 40% della potenza totale
         case Strategy::lessDefense:
             if(isInvader)
+                //l'invasore usa tutta la potenza
                 power = army->getPower();
             else
                 power = army->getPower() * 60/100;
@@ -246,7 +267,7 @@ float Map::calculateStrengthRecursive(int row, int col, bool isInvader, vector<v
     }
     // ... qui, differenzio la strategy
 
-
+    //calcolo della potenza se ho confinanti alleati
     power += controlledCall(row+1, col, isInvader, army->getName(), calculatedMat);
     power += controlledCall(row+1, col-1, isInvader, army->getName(), calculatedMat);
     power += controlledCall(row, col-1, isInvader, army->getName(), calculatedMat);
@@ -260,6 +281,7 @@ float Map::calculateStrengthRecursive(int row, int col, bool isInvader, vector<v
 
 }
 
+//funzione che controlla se il combattimento è valido
 float Map::controlledCall(int row, int col, bool isInvader, string armyName, vector<vector<bool>> &calculatedMat)
 {
     if (!(col < columns && col >= 0 && row < rows && row >= 0)) //controllo confini
@@ -270,6 +292,7 @@ float Map::controlledCall(int row, int col, bool isInvader, string armyName, vec
         return calculateStrengthRecursive(row, col, isInvader, calculatedMat);
 }
 
+//funzione che conta il numero totale di truppe (semplici e magiche) confinanti
 void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
     numMagic = 0;
     numSimple = 0;
@@ -283,7 +306,7 @@ void Map::countTroops(string nomeCasata, int &numMagic, int &numSimple){
     }
 }
 
-//funzione che serve per controllare i nemici
+//funzione che serve per controllare i nemici (se non ci sono ho vinto la partita)
 bool Map::hasEnemies(int row, int column){
     for(int i = row - 1; i <= row + 1; i++){
         for(int j = column - 1; j <= column + 1; j++){

@@ -6,7 +6,6 @@
 
 Strategy Greyjoy::strategy = Strategy::onlySimple;
 
-
 Greyjoy::Greyjoy(int numMagic,int numSimple, float magicStrength, float simpleStrength) : Army(numMagic, numSimple, magicStrength, simpleStrength) {
 }
 

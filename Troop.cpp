@@ -4,8 +4,6 @@
 
 #include "Troop.h"
 
-
-
 float Troop::getStrenght() {
     return strenght;
 }

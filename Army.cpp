@@ -39,6 +39,7 @@ void Army::setNumMagTroops(int numMagTroops) {
     numMagic = numMagTroops;
 }
 
+//funzione che assegna casualmente la strategia ad ogni casata all'inizio della partita
 Strategy Army::randomStrategy() {
 
     int randomStrategy;
