@@ -1,3 +1,6 @@
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ChooseWindow.h"
@@ -8,6 +11,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow), mainbkgnd("img/main.jpg")
 {
     ui->setupUi(this);
+    /*QMediaPlayer *music = new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sounds/gotmusic.mp3"));
+    music->play();*/
+
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sounds/gotmusic.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    QMediaPlayer *music = new QMediaPlayer();
+    music->setPlaylist(playlist);
+    music->play();
 }
 
 MainWindow::~MainWindow()
